@@ -4,6 +4,7 @@ from urllib.parse import urlparse
 from enhancements import enhance
 from editorial import evidence_panel, focused_guide
 from measurements import report_panel, coverage, entry_card
+from content_revision import revise, price_panel, audit_table
 
 ROOT=Path(__file__).parent
 DIST=ROOT/'dist'
@@ -16,6 +17,7 @@ coupons=dict(breezenet='weifeng90',flycat='flycat888',worryfree='wuyou666',flash
 byid={b['id']:b for b in source['brands']}
 verification={v['id']:v for v in json.loads((ROOT/'data/verification.json').read_text(encoding='utf-8'))}
 test_records={v['id']:v for v in json.loads((ROOT/'data/third-party-tests.json').read_text(encoding='utf-8'))}
+price_audit={v['id']:v for v in json.loads((ROOT/'data/price-audit.json').read_text(encoding='utf-8'))}
 brands=[byid[x] for x in order]
 for i,b in enumerate(brands):
     b['rank']=i+1
@@ -25,6 +27,7 @@ for i,b in enumerate(brands):
     b['measurementStatus']='未进行独立实测'
     b['verification']=verification[b['id']]
     b['thirdPartyTest']=test_records[b['id']]
+    b['priceAudit']=price_audit[b['id']]
     b.pop('couponTerms',None)
 excluded={'firefly','jilian','kosing'}
 
@@ -65,14 +68,14 @@ def page(path,title,desc,body,kind='WebPage',article=None):
     if path.startswith('/brands/') and path!='/brands/':
         b=byid[path.split('/')[2]]
         marker='<section class="section"><h2>套餐与流量档案</h2>'
-        body=body.replace(marker,evidence_panel(b,verification[b['id']])+report_panel(b,test_records[b['id']])+marker,1)
+        body=body.replace(marker,evidence_panel(b,verification[b['id']])+report_panel(b,test_records[b['id']])+price_panel(b,price_audit[b['id']])+marker,1)
         if test_records[b['id']]['status']!='not_collected':
             body=body.replace('以下为套餐资料与分析。','下方包含套餐分析与有出处的第三方测速摘录。')
     if article and article['cat']=='测评研究':
         b=byid[article['brands'][0]]
         body=body.replace('<h2>已知资料与需要确认的内容</h2>',evidence_panel(b,verification[b['id']])+report_panel(b,test_records[b['id']])+'<h2>已知资料与需要确认的内容</h2>',1)
     if path=='/methodology/':
-        body=body.replace('</article>',coverage(brands,test_records)+'</article>',1)
+        body=body.replace('</article>',coverage(brands,test_records)+audit_table(brands,price_audit)+'</article>',1)
     if path in ('/','/brands/'):
         body+=entry_card()
     body=enhance(body,path,bool(article))
@@ -166,6 +169,7 @@ for g in guides:
     if g['slug']=='latency-throughput':body+='<p>方法参考：<a href="https://blog.cloudflare.com/how-does-cloudflares-speed-test-really-work/" target="_blank" rel="noopener noreferrer">Cloudflare · 网络质量测试方法</a></p>'
     add(g['slug'],g['title'],g['sections'][0][1][:110],body,'选购指南')
 assert len(articles)==150
+revise(articles,brands,monthly,excluded,test_records,price_audit)
 
 for b in brands:
     links=''.join(card('/articles/'+a['slug']+'/',a['title'],a['desc'],a['cat']) for a in articles if b['id'] in a['brands'] and a['cat']!='品牌对比')
