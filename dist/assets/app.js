@@ -1,0 +1,1 @@
+document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',async()=>{const s=document.getElementById('copy-status');try{await navigator.clipboard.writeText(b.dataset.copy);s.textContent='优惠码已复制：'+b.dataset.copy}catch{s.textContent='复制不可用，请手动选择优惠码：'+b.dataset.copy}}));
