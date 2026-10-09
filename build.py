@@ -1,6 +1,7 @@
 from pathlib import Path
 import json, html, math, re, shutil
 from urllib.parse import urlparse
+from enhancements import enhance
 
 ROOT=Path(__file__).parent
 DIST=ROOT/'dist'
@@ -51,15 +52,17 @@ def table(b,plans=None):
 pages=[]
 favicon='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><rect width="40" height="40" rx="8" fill="#111827"/><path d="M9 29V22H14V29M18 29V15H23V29M27 29V8H32V29" fill="#88f3c9"/></svg>'
 (DIST/'assets/favicon.svg').write_text(favicon,encoding='utf-8')
-(DIST/'assets/app.js').write_text('''document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',async()=>{const s=document.getElementById('copy-status');try{await navigator.clipboard.writeText(b.dataset.copy);s.textContent='优惠码已复制：'+b.dataset.copy}catch{s.textContent='复制不可用，请手动选择优惠码：'+b.dataset.copy}}));''',encoding='utf-8')
-nav='<a href="/topics/">严选专题</a><a href="/brands/">品牌库</a><a href="/articles/">文章</a><a href="/coupons/">优惠码</a>'
+for asset in ('app.js','style.css'):
+    shutil.copyfile(ROOT/'assets'/asset,DIST/'assets'/asset)
+nav='<a href="#site-search">搜索</a><a href="/topics/">严选专题</a><a href="/brands/">品牌库</a><a href="/articles/">文章</a><a href="/coupons/">优惠码</a>'
 def page(path,title,desc,body,kind='WebPage',article=None):
+    body=enhance(body,path,bool(article))
     canonical=DOMAIN+path
     schema={'@context':'https://schema.org','@type':kind,'name':title,'description':desc,'url':canonical,'inLanguage':'zh-CN'}
     if article:
         schema.update(headline=title,datePublished=DATE,dateModified=DATE,author={'@type':'Organization','name':'翻墙排行编辑资料组','url':DOMAIN+'/about/'},publisher={'@type':'Organization','name':'翻墙排行','url':DOMAIN},mainEntityOfPage=canonical)
     schema2={'@context':'https://schema.org','@type':'BreadcrumbList','itemListElement':[{'@type':'ListItem','position':1,'name':'翻墙排行','item':DOMAIN+'/'},{'@type':'ListItem','position':2,'name':title,'item':canonical}]} if path!='/' else {'@context':'https://schema.org','@type':'WebSite','name':'翻墙排行','url':DOMAIN,'inLanguage':'zh-CN'}
-    document=f'''<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{E(title)}｜翻墙排行</title><meta name="description" content="{E(desc)}"><meta name="keywords" content="梯子推荐,机场推荐,{E(title.split('：')[0])}"><meta name="robots" content="index,follow"><link rel="canonical" href="{canonical}"><meta property="og:type" content="{'article' if article else 'website'}"><meta property="og:site_name" content="翻墙排行"><meta property="og:title" content="{E(title)}"><meta property="og:description" content="{E(desc)}"><meta property="og:url" content="{canonical}"><meta property="og:locale" content="zh_CN"><meta name="theme-color" content="#090d17"><link rel="icon" type="image/svg+xml" href="/assets/favicon.svg"><link rel="stylesheet" href="/assets/style.css"><script src="/assets/app.js" defer></script><script type="application/ld+json">{json.dumps([schema,schema2],ensure_ascii=False).replace('</','<\\/')}</script></head><body><a class="skip" href="#main">跳到正文</a><header><div class="shell"><a class="logo" href="/">翻墙<b>排行</b></a><nav aria-label="主导航">{nav}</nav></div></header><main id="main" class="shell">{body}</main><footer><div class="shell"><a class="logo" href="/">翻墙<b>排行</b></a><p>读懂套餐，再做选择。价格资料有日期，测试结论有依据。</p><div class="footer-links"><a href="/about/">关于本站</a><a href="/methodology/">排行与测评方法</a><a href="/disclosure/">推广关系说明</a><a href="/sitemap/">网站地图</a></div><p>© 2026 翻墙排行 · fanqiangpaihang.wiki · 资料整理于 {DATE}</p></div></footer></body></html>'''
+    document=f'''<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{E(title)}｜翻墙排行</title><meta name="description" content="{E(desc)}"><meta name="keywords" content="梯子推荐,机场推荐,{E(title.split('：')[0])}"><meta name="robots" content="index,follow"><link rel="canonical" href="{canonical}"><meta property="og:type" content="{'article' if article else 'website'}"><meta property="og:site_name" content="翻墙排行"><meta property="og:title" content="{E(title)}"><meta property="og:description" content="{E(desc)}"><meta property="og:url" content="{canonical}"><meta property="og:locale" content="zh_CN"><meta name="theme-color" content="#090d17"><link rel="icon" type="image/svg+xml" href="/assets/favicon.svg"><link rel="stylesheet" href="/assets/style.css"><script src="/assets/app.js" defer></script><script type="application/ld+json">{json.dumps([schema,schema2],ensure_ascii=False).replace('</','<\\/')}</script></head><body><a class="skip" href="#main">跳到正文</a><header><div class="shell"><a class="logo" href="/">翻墙<b>排行</b></a><nav aria-label="主导航">{nav}</nav></div></header><main id="main" class="shell">{body}</main><footer><div class="shell"><a class="logo" href="/">翻墙<b>排行</b></a><p>读懂套餐，再做选择。价格资料有日期，测试结论有依据。</p><div class="footer-links"><a href="/about/">关于本站</a><a href="/methodology/">排行与测评方法</a><a href="/disclosure/">推广关系说明</a><a href="/sitemap/">网站地图</a></div><p>© 2026 翻墙排行 · fanqiangpaihang.wiki · 资料整理于 {DATE}</p><button id="motion-toggle" class="motion-button" type="button" aria-pressed="false">暂停背景动画</button></div></footer><a class="top-link" href="#main" aria-label="返回页面顶部">↑ 顶部</a></body></html>'''
     target=DIST/path.lstrip('/')/'index.html' if path.endswith('/') else DIST/path.lstrip('/')
     target.parent.mkdir(parents=True,exist_ok=True)
     target.write_text(document,encoding='utf-8')
@@ -176,3 +179,11 @@ page('/sitemap/','翻墙排行网站地图','浏览品牌详情、排行专题�
 (ROOT/'data/articles.json').write_text(json.dumps(articles,ensure_ascii=False,indent=2),encoding='utf-8')
 (ROOT/'data/pages.json').write_text(json.dumps(pages,ensure_ascii=False,indent=2),encoding='utf-8')
 print(json.dumps({'brands':len(brands),'coupons':len(coupons),'articles':len(articles),'pages':len(pages),'plans':sum(len(b['plans']) for b in brands)},ensure_ascii=True))
+
+article_categories={'/articles/'+a['slug']+'/':a['cat'] for a in articles}
+brand_keywords={'/brands/'+b['id']+'/':b['name']+' '+b['english']+' '+b['id'] for b in brands}
+search_index=[]
+for p in pages:
+    category=article_categories.get(p['path'],'品牌资料' if p['path'] in brand_keywords else '排行专题' if p['path'].startswith('/topics/') else '网站栏目')
+    search_index.append(dict(p,category=category,keywords=brand_keywords.get(p['path'],'')+' '+next((' '.join(byid[b]['english']+' '+b for b in a['brands']) for a in articles if '/articles/'+a['slug']+'/'==p['path']),'' )))
+(DIST/'assets/search.json').write_text(json.dumps(search_index,ensure_ascii=False),encoding='utf-8')
