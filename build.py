@@ -3,6 +3,7 @@ import json, html, math, re, shutil
 from urllib.parse import urlparse
 from enhancements import enhance
 from editorial import evidence_panel, focused_guide
+from measurements import report_panel, coverage, entry_card
 
 ROOT=Path(__file__).parent
 DIST=ROOT/'dist'
@@ -14,6 +15,7 @@ order='breezenet flycat twilight dalaocloud firefly civet flashleap worryfree ku
 coupons=dict(breezenet='weifeng90',flycat='flycat888',worryfree='wuyou666',flashleap='shanyue',firefly='firefly',stardream='nmw888',lightspeed='jichangcha09',v2yun='rabbit',u1s1='U1S1',globalcloud='tt88',yuzhou='YUZHOU553')
 byid={b['id']:b for b in source['brands']}
 verification={v['id']:v for v in json.loads((ROOT/'data/verification.json').read_text(encoding='utf-8'))}
+test_records={v['id']:v for v in json.loads((ROOT/'data/third-party-tests.json').read_text(encoding='utf-8'))}
 brands=[byid[x] for x in order]
 for i,b in enumerate(brands):
     b['rank']=i+1
@@ -22,6 +24,7 @@ for i,b in enumerate(brands):
     b['importedAt']=DATE
     b['measurementStatus']='未进行独立实测'
     b['verification']=verification[b['id']]
+    b['thirdPartyTest']=test_records[b['id']]
     b.pop('couponTerms',None)
 excluded={'firefly','jilian','kosing'}
 
@@ -62,13 +65,22 @@ def page(path,title,desc,body,kind='WebPage',article=None):
     if path.startswith('/brands/') and path!='/brands/':
         b=byid[path.split('/')[2]]
         marker='<section class="section"><h2>套餐与流量档案</h2>'
-        body=body.replace(marker,evidence_panel(b,verification[b['id']])+marker,1)
+        body=body.replace(marker,evidence_panel(b,verification[b['id']])+report_panel(b,test_records[b['id']])+marker,1)
+        if test_records[b['id']]['status']!='not_collected':
+            body=body.replace('以下为套餐资料与分析。','下方包含套餐分析与有出处的第三方测速摘录。')
     if article and article['cat']=='测评研究':
         b=byid[article['brands'][0]]
-        body=body.replace('<h2>已知资料与需要确认的内容</h2>',evidence_panel(b,verification[b['id']])+'<h2>已知资料与需要确认的内容</h2>',1)
+        body=body.replace('<h2>已知资料与需要确认的内容</h2>',evidence_panel(b,verification[b['id']])+report_panel(b,test_records[b['id']])+'<h2>已知资料与需要确认的内容</h2>',1)
+    if path=='/methodology/':
+        body=body.replace('</article>',coverage(brands,test_records)+'</article>',1)
+    if path in ('/','/brands/'):
+        body+=entry_card()
     body=enhance(body,path,bool(article))
     canonical=DOMAIN+path
     schema={'@context':'https://schema.org','@type':kind,'name':title,'description':desc,'url':canonical,'inLanguage':'zh-CN'}
+    record_id=article['brands'][0] if article and article['cat']=='测评研究' else path.split('/')[2] if path.startswith('/brands/') and path!='/brands/' else None
+    if record_id and test_records[record_id].get('sourceUrl'):
+        schema['citation']=test_records[record_id]['sourceUrl']
     if article:
         schema.update(headline=title,datePublished=DATE,dateModified=DATE,author={'@type':'Organization','name':'翻墙排行编辑资料组','url':DOMAIN+'/about/'},publisher={'@type':'Organization','name':'翻墙排行','url':DOMAIN},mainEntityOfPage=canonical)
     schema2={'@context':'https://schema.org','@type':'BreadcrumbList','itemListElement':[{'@type':'ListItem','position':1,'name':'翻墙排行','item':DOMAIN+'/'},{'@type':'ListItem','position':2,'name':title,'item':canonical}]} if path!='/' else {'@context':'https://schema.org','@type':'WebSite','name':'翻墙排行','url':DOMAIN,'inLanguage':'zh-CN'}
@@ -124,7 +136,10 @@ for b in brands:
     body=section('这是一份资料评估',f'{n}在本站品牌库按站长顺序收录为第{b["rank"]}项。这个序号描述收录顺序，不是实测评分。参考资料列示线路为“{b["line"]}”，该字段是来源口径，本站没有通过独立账户验证线路、速度或可用性。')+section('已知资料与需要确认的内容',profile['verifyInsight']+' '+b['note'])+section('容量和预算能回答哪些问题',profile['monthlyInsight']+' 成本分析可以用于缩小候选范围，但不能回答晚高峰是否稳定、能否完成具体平台任务或客服实际响应速度。')
     body+=section('针对这个品牌的测试记录设计',f"如果准备测试{n}，先记录购买套餐、容量版本、节点、客户端、运营商与接入方式。在常用时段对同一个真实任务多次观察，记录日期、任务次数、失败次数及恢复时间。{profile['tradeoff']} 测试前先解决这个资料问题，避免用不一致的版本比较。")
     body+=section('不同宣传需要对应的证据','速度描述需要测量工具、服务器和单位；稳定性需要多个日期的任务记录；平台支持需要具体平台、节点地区和操作结果。只打开首页不能证明所有内容可用，单次峰值也不能代表整个周期。没有对应记录的字段统一保留未测。')+section('优惠与入口状态',f"本次{'收录优惠码 '+b['coupon'] if b['coupon'] else '未提供该品牌优惠码'}。代码未进行结算验证，不在测评中加分，不从代码名称推断折扣。品牌入口由站长提供，带推荐代码，可能产生推广收益。")+section('资料评估结论',f"{n}可作为需要进一步核对的候选。当前能支持的结论是套餐结构与版本差异，无法支持稳定率、解锁率或实测速率排名。{'归属或运营状态问题解决之前，不将参考价目作为购买建议。' if not valid else '先确认当前套餐，再用短周期观察自身任务是否满足需求。'}")+sources([b])
-    add(b['id']+'-review',n+'机场测评资料评估：证据边界与测试清单',f'整理{n}的套餐疑点、线路资料与测试方法；明确当前没有独立测速记录。',body,'测评研究',[b])
+    has_report=test_records[b['id']]['status']!='not_collected'
+    if has_report:
+        body=body.replace('当前能支持的结论是套餐结构与版本差异，无法支持稳定率、解锁率或实测速率排名。','本页新增有出处的第三方测速摘录，反映原报告测试条件下的观测；仍无法支持长期稳定率、解锁率或跨品牌速度排名。')
+    add(b['id']+'-review',n+('机场测评：第三方测速记录与套餐核对' if has_report else '机场测评资料评估：证据边界与测试清单'),f'整理{n}的'+('公开第三方测速、测试条件、图片来源与局限；本站未亲测。' if has_report else '套餐疑点、线路资料与测试方法；明确当前没有独立测速记录。'),body,'测评研究',[b])
 
 for idx,a in enumerate(brands):
     b=brands[(idx+1)%len(brands)]; ap=monthly(a); bp=monthly(b)

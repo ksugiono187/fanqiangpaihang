@@ -15,7 +15,7 @@ def evidence_panel(b, check):
         ['套餐原记录日期', E('、'.join(dates))],
         ['当前售价与额度', '尚未逐项核验；下表保留参考记录，不代表今日可购买报价。'],
         ['优惠码', '站长提供，未进行结算验证。' if b.get('coupon') else '本次未提供。'],
-        ['速度与稳定性', '没有独立账户测试记录，不能形成实测排名。'],
+        ['速度与稳定性', ('已补充公开第三方报告，条件与来源见下方；' if b.get('thirdPartyTest',{}).get('sourceUrl') else '')+'本站没有独立账户测试记录，不能形成实测排名。'],
     ]
     return '<section class="section evidence-panel"><span class="eyebrow">EVIDENCE RECORD</span><h2>本次核对与证据状态</h2>' + grid_table(['核对项目','结果与边界'],rows) + '<p class="meta">入口核对只说明本次网络访问结果。跳转页的 favicon 探测延迟不等于代理节点测速；无法访问也不能单独证明品牌停运。</p></section>'
 

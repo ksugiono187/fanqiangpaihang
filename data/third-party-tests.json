@@ -1,0 +1,539 @@
+[
+  {
+    "id": "breezenet",
+    "status": "dated_report",
+    "checkedAt": "2026-10-09",
+    "sourceName": "机场笔记",
+    "author": "机场笔记编辑部",
+    "sourceUrl": "https://jichangnote.com/reviews/weifeng-network/",
+    "evidenceUrl": "https://jichangnote.com/_astro/weifeng-speed-2026-07-19.BIons3GZ.png",
+    "testedAt": "2026-07-19 18:38:20 CST",
+    "environment": "珠海联通 9Gbps 测速服务器",
+    "tool": "MiaoKo",
+    "threads": 32,
+    "testedNodes": 50,
+    "results": [
+      {
+        "region": "香港",
+        "testedNodes": 15,
+        "resultNodes": "15 / 15",
+        "tlsMs": 113.4,
+        "downloadMBps": 530.21
+      },
+      {
+        "region": "美国",
+        "testedNodes": 10,
+        "resultNodes": "10 / 10",
+        "tlsMs": 247.1,
+        "downloadMBps": 14.23
+      }
+    ],
+    "note": "原图存在零速和极低速节点；地区均值不能套用到每条节点。",
+    "evidenceReview": "本站查看了原图的可见节点和底部条件；未复现测试或核算全部地区均值。",
+    "sourceConflictUrl": null,
+    "metricsMissing": [
+      "上传速度",
+      "丢包率",
+      "连续监控可用率"
+    ],
+    "affiliation": "来源页面披露推广链接；来源自称亲自测试，本站不能仅凭公开页面认证其原始性。"
+  },
+  {
+    "id": "flycat",
+    "status": "dated_report",
+    "checkedAt": "2026-10-09",
+    "sourceName": "机场笔记",
+    "author": "机场笔记编辑部",
+    "sourceUrl": "https://jichangnote.com/reviews/feimao-cloud/",
+    "evidenceUrl": "https://jichangnote.com/_astro/feimao-speed-2026-07-11.C2-xiAGd.png",
+    "testedAt": "2026-07-11 21:34:44 CST",
+    "environment": "珠海联通 9Gbps 测速服务器",
+    "tool": "MiaoKo",
+    "threads": 32,
+    "testedNodes": 57,
+    "results": [
+      {
+        "region": "香港",
+        "testedNodes": 19,
+        "resultNodes": "19 / 19",
+        "tlsMs": 193.1,
+        "downloadMBps": 75.63
+      },
+      {
+        "region": "美国",
+        "testedNodes": 10,
+        "resultNodes": "10 / 10",
+        "tlsMs": 256.0,
+        "downloadMBps": 14.87
+      }
+    ],
+    "note": "原图有59行，前两行是订阅状态，实际地区节点57个。其他页面曾将59行写成59节点，本页采用排除状态行的口径。",
+    "evidenceReview": "本站查看了原图的可见节点和底部条件；未复现测试或核算全部地区均值。",
+    "sourceConflictUrl": "https://jichangtuijiancn.co/reviews/feimaoyun/",
+    "metricsMissing": [
+      "上传速度",
+      "丢包率",
+      "连续监控可用率"
+    ],
+    "affiliation": "来源页面披露推广链接；来源自称亲自测试，本站不能仅凭公开页面认证其原始性。"
+  },
+  {
+    "id": "twilight",
+    "status": "not_collected",
+    "checkedAt": "2026-10-09",
+    "scope": "本轮检索未收录符合本站引用条件的数值；不表示网上没有报告，也不表示服务不可用。"
+  },
+  {
+    "id": "dalaocloud",
+    "status": "not_collected",
+    "checkedAt": "2026-10-09",
+    "scope": "本轮检索未收录符合本站引用条件的数值；不表示网上没有报告，也不表示服务不可用。"
+  },
+  {
+    "id": "firefly",
+    "status": "dated_report",
+    "checkedAt": "2026-10-09",
+    "sourceName": "机场笔记",
+    "author": "机场笔记编辑部",
+    "sourceUrl": "https://jichangnote.com/reviews/firefly/",
+    "evidenceUrl": "https://jichangnote.com/_astro/firefly-speed-2026-07-18.CA8A99h_.png",
+    "testedAt": "2026-07-18 20:35:24 CST",
+    "environment": "珠海联通 9Gbps 测速服务器",
+    "tool": "MiaoKo",
+    "threads": 32,
+    "testedNodes": 50,
+    "results": [
+      {
+        "region": "香港",
+        "testedNodes": 15,
+        "resultNodes": "14 / 15",
+        "tlsMs": 106.9,
+        "downloadMBps": 494.39
+      },
+      {
+        "region": "美国",
+        "testedNodes": 10,
+        "resultNodes": "10 / 10",
+        "tlsMs": 243.5,
+        "downloadMBps": 10.72
+      }
+    ],
+    "note": "本报告按Firefly名称收录。它不能消除本站旧价目中“飞为”与Firefly的对应疑点。",
+    "evidenceReview": "本站读取了报告表格与其提供的图片链接；未复现测试或逐行核算原图。",
+    "sourceConflictUrl": null,
+    "metricsMissing": [
+      "上传速度",
+      "丢包率",
+      "连续监控可用率"
+    ],
+    "affiliation": "来源页面披露推广链接；来源自称亲自测试，本站不能仅凭公开页面认证其原始性。"
+  },
+  {
+    "id": "civet",
+    "status": "dated_report",
+    "checkedAt": "2026-10-09",
+    "sourceName": "机场笔记",
+    "author": "机场笔记编辑部",
+    "sourceUrl": "https://jichangnote.com/reviews/lingmao/",
+    "evidenceUrl": "https://jichangnote.com/_astro/lingmao-speed-2026-07-19.Dx39EyCC.png",
+    "testedAt": "2026-07-19 17:24:44 CST",
+    "environment": "珠海联通 9Gbps 测速服务器",
+    "tool": "MiaoKo",
+    "threads": 32,
+    "testedNodes": 50,
+    "results": [
+      {
+        "region": "香港",
+        "testedNodes": 15,
+        "resultNodes": "15 / 15",
+        "tlsMs": 104.1,
+        "downloadMBps": 519.36
+      },
+      {
+        "region": "美国",
+        "testedNodes": 10,
+        "resultNodes": "10 / 10",
+        "tlsMs": 250.0,
+        "downloadMBps": 11.27
+      }
+    ],
+    "note": "地区节点在图中并不连续排列，不能仅按截图位置判断地区表现。",
+    "evidenceReview": "本站读取了报告表格与其提供的图片链接；未复现测试或逐行核算原图。",
+    "sourceConflictUrl": null,
+    "metricsMissing": [
+      "上传速度",
+      "丢包率",
+      "连续监控可用率"
+    ],
+    "affiliation": "来源页面披露推广链接；来源自称亲自测试，本站不能仅凭公开页面认证其原始性。"
+  },
+  {
+    "id": "flashleap",
+    "status": "dated_report",
+    "checkedAt": "2026-10-09",
+    "sourceName": "机场笔记",
+    "author": "机场笔记编辑部",
+    "sourceUrl": "https://jichangnote.com/reviews/shanyue/",
+    "evidenceUrl": "https://jichangnote.com/_astro/shanyue-speed-2026-07-18.Du8JGmMw.png",
+    "testedAt": "2026-07-18 21:18:08 CST",
+    "environment": "珠海联通 9Gbps 测速服务器",
+    "tool": "MiaoKo",
+    "threads": 32,
+    "testedNodes": 50,
+    "results": [
+      {
+        "region": "香港",
+        "testedNodes": 15,
+        "resultNodes": "15 / 15",
+        "tlsMs": 120.3,
+        "downloadMBps": 532.64
+      },
+      {
+        "region": "美国",
+        "testedNodes": 10,
+        "resultNodes": "10 / 10",
+        "tlsMs": 245.2,
+        "downloadMBps": 11.06
+      }
+    ],
+    "note": "这是21:18的一次批量测试，没有同条件连续多日监控。",
+    "evidenceReview": "本站读取了报告表格与其提供的图片链接；未复现测试或逐行核算原图。",
+    "sourceConflictUrl": null,
+    "metricsMissing": [
+      "上传速度",
+      "丢包率",
+      "连续监控可用率"
+    ],
+    "affiliation": "来源页面披露推广链接；来源自称亲自测试，本站不能仅凭公开页面认证其原始性。"
+  },
+  {
+    "id": "worryfree",
+    "status": "dated_report",
+    "checkedAt": "2026-10-09",
+    "sourceName": "机场笔记",
+    "author": "机场笔记编辑部",
+    "sourceUrl": "https://jichangnote.com/reviews/wuyou-link/",
+    "evidenceUrl": "https://jichangnote.com/_astro/wuyou-link-speed-2026-07-18.i09i425w.png",
+    "testedAt": "2026-07-18 21:40:48 CST",
+    "environment": "珠海联通 9Gbps 测速服务器",
+    "tool": "MiaoKo",
+    "threads": 32,
+    "testedNodes": 50,
+    "results": [
+      {
+        "region": "香港",
+        "testedNodes": 15,
+        "resultNodes": "15 / 15",
+        "tlsMs": 108.1,
+        "downloadMBps": 524.41
+      },
+      {
+        "region": "美国",
+        "testedNodes": 10,
+        "resultNodes": "10 / 10",
+        "tlsMs": 245.1,
+        "downloadMBps": 13.96
+      }
+    ],
+    "note": "这是21:40的一次批量测试；单次任务完成不等于长期稳定率。",
+    "evidenceReview": "本站读取了报告表格与其提供的图片链接；未复现测试或逐行核算原图。",
+    "sourceConflictUrl": null,
+    "metricsMissing": [
+      "上传速度",
+      "丢包率",
+      "连续监控可用率"
+    ],
+    "affiliation": "来源页面披露推广链接；来源自称亲自测试，本站不能仅凭公开页面认证其原始性。"
+  },
+  {
+    "id": "kuajie",
+    "status": "dated_report",
+    "checkedAt": "2026-10-09",
+    "sourceName": "机场笔记",
+    "author": "机场笔记编辑部",
+    "sourceUrl": "https://jichangnote.com/reviews/kuajie-cloud/",
+    "evidenceUrl": "https://jichangnote.com/_astro/kuajie-speed-2026-07-19.BXlB-1W-.png",
+    "testedAt": "2026-07-19 16:18:50 CST",
+    "environment": "珠海联通 9Gbps 测速服务器",
+    "tool": "MiaoKo",
+    "threads": 32,
+    "testedNodes": 50,
+    "results": [
+      {
+        "region": "美国",
+        "testedNodes": 10,
+        "resultNodes": "10 / 10",
+        "tlsMs": 244.7,
+        "downloadMBps": 12.39
+      },
+      {
+        "region": "香港",
+        "testedNodes": 15,
+        "resultNodes": "15 / 15",
+        "tlsMs": 118.2,
+        "downloadMBps": 511.22
+      }
+    ],
+    "note": "测试在16:18进行，不作为晚高峰表现的证据。",
+    "evidenceReview": "本站读取了报告表格与其提供的图片链接；未复现测试或逐行核算原图。",
+    "sourceConflictUrl": null,
+    "metricsMissing": [
+      "上传速度",
+      "丢包率",
+      "连续监控可用率"
+    ],
+    "affiliation": "来源页面披露推广链接；来源自称亲自测试，本站不能仅凭公开页面认证其原始性。"
+  },
+  {
+    "id": "2mao",
+    "status": "not_collected",
+    "checkedAt": "2026-10-09",
+    "scope": "本轮检索未收录符合本站引用条件的数值；不表示网上没有报告，也不表示服务不可用。"
+  },
+  {
+    "id": "sogo",
+    "status": "not_collected",
+    "checkedAt": "2026-10-09",
+    "scope": "本轮检索未收录符合本站引用条件的数值；不表示网上没有报告，也不表示服务不可用。"
+  },
+  {
+    "id": "yuzhou",
+    "status": "not_collected",
+    "checkedAt": "2026-10-09",
+    "scope": "本轮检索未收录符合本站引用条件的数值；不表示网上没有报告，也不表示服务不可用。"
+  },
+  {
+    "id": "1fly",
+    "status": "not_collected",
+    "checkedAt": "2026-10-09",
+    "scope": "本轮检索未收录符合本站引用条件的数值；不表示网上没有报告，也不表示服务不可用。"
+  },
+  {
+    "id": "edgenova",
+    "status": "not_collected",
+    "checkedAt": "2026-10-09",
+    "scope": "本轮检索未收录符合本站引用条件的数值；不表示网上没有报告，也不表示服务不可用。"
+  },
+  {
+    "id": "kosing",
+    "status": "not_collected",
+    "checkedAt": "2026-10-09",
+    "scope": "本轮检索未收录符合本站引用条件的数值；不表示网上没有报告，也不表示服务不可用。"
+  },
+  {
+    "id": "sujie",
+    "status": "not_collected",
+    "checkedAt": "2026-10-09",
+    "scope": "本轮检索未收录符合本站引用条件的数值；不表示网上没有报告，也不表示服务不可用。"
+  },
+  {
+    "id": "kuaili",
+    "status": "not_collected",
+    "checkedAt": "2026-10-09",
+    "scope": "本轮检索未收录符合本站引用条件的数值；不表示网上没有报告，也不表示服务不可用。"
+  },
+  {
+    "id": "stardream",
+    "status": "dated_report",
+    "checkedAt": "2026-10-09",
+    "sourceName": "机场笔记",
+    "author": "机场笔记编辑部",
+    "sourceUrl": "https://jichangnote.com/reviews/xingdaomeng/",
+    "evidenceUrl": "https://jichangnote.com/_astro/xingdaomeng-speed-2026-07-18.CtSfjyW9.png",
+    "testedAt": "2026-07-18 15:46:18 CST",
+    "environment": "珠海联通 9Gbps 测速服务器",
+    "tool": "MiaoKo",
+    "threads": 32,
+    "testedNodes": 65,
+    "results": [
+      {
+        "region": "香港",
+        "testedNodes": 19,
+        "resultNodes": "16 / 19",
+        "tlsMs": 199.8,
+        "downloadMBps": 320.24
+      },
+      {
+        "region": "美国",
+        "testedNodes": 9,
+        "resultNodes": "9 / 9",
+        "tlsMs": 187.0,
+        "downloadMBps": 20.54
+      }
+    ],
+    "note": "原报告记录65节点中54个取得非零速度，11个没有速度结果；不能把概要65/65解释成全节点可用。",
+    "evidenceReview": "本站读取了报告表格与其提供的图片链接；未复现测试或逐行核算原图。",
+    "sourceConflictUrl": null,
+    "metricsMissing": [
+      "上传速度",
+      "丢包率",
+      "连续监控可用率"
+    ],
+    "affiliation": "来源页面披露推广链接；来源自称亲自测试，本站不能仅凭公开页面认证其原始性。"
+  },
+  {
+    "id": "lightspeed",
+    "status": "undated_report",
+    "checkedAt": "2026-10-09",
+    "sourceName": "机场笔记",
+    "author": "机场笔记编辑部",
+    "sourceUrl": "https://jichangnote.com/reviews/guangsu-cloud/",
+    "evidenceUrl": "https://jichangnote.com/_astro/guangsu-cloud-speed-undated.DeWJTuZl_Z1PwgFF.webp",
+    "testedAt": null,
+    "environment": "珠海联通 9Gbps 测速服务器",
+    "tool": "MiaoKo",
+    "threads": 1,
+    "testedNodes": 60,
+    "results": [
+      {
+        "region": "香港",
+        "testedNodes": 20,
+        "resultNodes": "20 / 20",
+        "tlsMs": 126.9,
+        "downloadMBps": 384.13
+      },
+      {
+        "region": "美国",
+        "testedNodes": 10,
+        "resultNodes": "10 / 10",
+        "tlsMs": 282.9,
+        "downloadMBps": 308.44
+      }
+    ],
+    "note": "日期与时段无法确认，单线程。原报告指出列表60行与概要70/70不一致，并存在1.60KB/s的极低速节点；降低证据完整度。",
+    "evidenceReview": "本站读取了报告表格与其提供的图片链接；未复现测试或逐行核算原图。",
+    "sourceConflictUrl": null,
+    "metricsMissing": [
+      "上传速度",
+      "丢包率",
+      "连续监控可用率"
+    ],
+    "affiliation": "来源页面披露推广链接；来源自称亲自测试，本站不能仅凭公开页面认证其原始性。"
+  },
+  {
+    "id": "v2yun",
+    "status": "dated_report",
+    "checkedAt": "2026-10-09",
+    "sourceName": "机场笔记",
+    "author": "机场笔记编辑部",
+    "sourceUrl": "https://jichangnote.com/reviews/weituyun/",
+    "evidenceUrl": "https://jichangnote.com/_astro/weituyun-speed-2026-05-02.CGwWsOzJ_1YTvgq.webp",
+    "testedAt": "2026-05-02 18:21:45 CST",
+    "environment": "珠海联通 9Gbps 测速服务器",
+    "tool": "MiaoKo",
+    "threads": 32,
+    "testedNodes": 63,
+    "results": [
+      {
+        "region": "香港",
+        "testedNodes": 20,
+        "resultNodes": "20 / 20",
+        "tlsMs": 136.0,
+        "downloadMBps": 271.73
+      },
+      {
+        "region": "美国",
+        "testedNodes": 10,
+        "resultNodes": "10 / 10",
+        "tlsMs": 181.7,
+        "downloadMBps": 53.58
+      }
+    ],
+    "note": "记录来自5月的一次测试，距本次整理已有数月；保留历史日期，不当作当前速度。",
+    "evidenceReview": "本站读取了报告表格与其提供的图片链接；未复现测试或逐行核算原图。",
+    "sourceConflictUrl": null,
+    "metricsMissing": [
+      "上传速度",
+      "丢包率",
+      "连续监控可用率"
+    ],
+    "affiliation": "来源页面披露推广链接；来源自称亲自测试，本站不能仅凭公开页面认证其原始性。"
+  },
+  {
+    "id": "u1s1",
+    "status": "dated_report",
+    "checkedAt": "2026-10-09",
+    "sourceName": "机场笔记",
+    "author": "机场笔记编辑部",
+    "sourceUrl": "https://jichangnote.com/reviews/u1s1/",
+    "evidenceUrl": "https://jichangnote.com/_astro/u1s1-speed-2026-07-09.CCOlrTwg.png",
+    "testedAt": "2026-07-09 10:46:59 CST",
+    "environment": "珠海联通 9Gbps 测速服务器",
+    "tool": "MiaoKo",
+    "threads": 1,
+    "testedNodes": 61,
+    "results": [
+      {
+        "region": "香港",
+        "testedNodes": 19,
+        "resultNodes": "17 / 19",
+        "tlsMs": 100.5,
+        "downloadMBps": 38.36
+      },
+      {
+        "region": "美国",
+        "testedNodes": 10,
+        "resultNodes": "9 / 10",
+        "tlsMs": 274.7,
+        "downloadMBps": 17.24
+      }
+    ],
+    "note": "单线程测试。原图64行含3行订阅状态，实际节点61个；不能与其他32线程结果直接排名。",
+    "evidenceReview": "本站读取了报告表格与其提供的图片链接；未复现测试或逐行核算原图。",
+    "sourceConflictUrl": null,
+    "metricsMissing": [
+      "上传速度",
+      "丢包率",
+      "连续监控可用率"
+    ],
+    "affiliation": "来源页面披露推广链接；来源自称亲自测试，本站不能仅凭公开页面认证其原始性。"
+  },
+  {
+    "id": "jilian",
+    "status": "not_collected",
+    "checkedAt": "2026-10-09",
+    "scope": "本轮检索未收录符合本站引用条件的数值；不表示网上没有报告，也不表示服务不可用。"
+  },
+  {
+    "id": "globalcloud",
+    "status": "not_collected",
+    "checkedAt": "2026-10-09",
+    "scope": "本轮检索未收录符合本站引用条件的数值；不表示网上没有报告，也不表示服务不可用。"
+  },
+  {
+    "id": "guangnianti",
+    "status": "not_collected",
+    "checkedAt": "2026-10-09",
+    "scope": "本轮检索未收录符合本站引用条件的数值；不表示网上没有报告，也不表示服务不可用。"
+  },
+  {
+    "id": "flyv",
+    "status": "not_collected",
+    "checkedAt": "2026-10-09",
+    "scope": "本轮检索未收录符合本站引用条件的数值；不表示网上没有报告，也不表示服务不可用。"
+  },
+  {
+    "id": "laddercloud",
+    "status": "not_collected",
+    "checkedAt": "2026-10-09",
+    "scope": "本轮检索未收录符合本站引用条件的数值；不表示网上没有报告，也不表示服务不可用。"
+  },
+  {
+    "id": "wavenet",
+    "status": "not_collected",
+    "checkedAt": "2026-10-09",
+    "scope": "本轮检索未收录符合本站引用条件的数值；不表示网上没有报告，也不表示服务不可用。"
+  },
+  {
+    "id": "lingdong",
+    "status": "not_collected",
+    "checkedAt": "2026-10-09",
+    "scope": "本轮检索未收录符合本站引用条件的数值；不表示网上没有报告，也不表示服务不可用。"
+  },
+  {
+    "id": "invisible",
+    "status": "not_collected",
+    "checkedAt": "2026-10-09",
+    "scope": "本轮检索未收录符合本站引用条件的数值；不表示网上没有报告，也不表示服务不可用。"
+  }
+]
