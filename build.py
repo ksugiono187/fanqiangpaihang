@@ -2,6 +2,7 @@ from pathlib import Path
 import json, html, math, re, shutil
 from urllib.parse import urlparse
 from enhancements import enhance
+from presentation import home_layout, brand_card, topic_cards
 from editorial import evidence_panel, focused_guide
 from measurements import report_panel, coverage, entry_card
 from content_revision import revise, price_panel, audit_table
@@ -59,16 +60,18 @@ def table(b,plans=None):
     return '<div class="table-wrap"><table><thead><tr><th>套餐记录</th><th>总付款 / 周期</th><th>容量口径</th><th>标称成本</th><th>资料日期 / 差异</th></tr></thead><tbody>'+''.join(rows)+'</tbody></table></div>'
 
 pages=[]
-favicon='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><rect width="40" height="40" rx="8" fill="#111827"/><path d="M9 29V22H14V29M18 29V15H23V29M27 29V8H32V29" fill="#88f3c9"/></svg>'
+favicon='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><rect width="40" height="40" rx="4" fill="#182e36"/><path d="M9 29V22H14V29M18 29V15H23V29M27 29V8H32V29" fill="#e5c997"/></svg>'
 (DIST/'assets/favicon.svg').write_text(favicon,encoding='utf-8')
-for asset in ('app.js','style.css','test-record-template.txt'):
+for asset in ('app.js','style.css','editorial.css','test-record-template.txt'):
     shutil.copyfile(ROOT/'assets'/asset,DIST/'assets'/asset)
 nav='<a href="#site-search">搜索</a><a href="/topics/">严选专题</a><a href="/brands/">品牌库</a><a href="/articles/">文章</a><a href="/coupons/">优惠码</a>'
 def page(path,title,desc,body,kind='WebPage',article=None):
     if path.startswith('/brands/') and path!='/brands/':
         b=byid[path.split('/')[2]]
         marker='<section class="section"><h2>套餐与流量档案</h2>'
-        body=body.replace(marker,evidence_panel(b,verification[b['id']])+report_panel(b,test_records[b['id']])+price_panel(b,price_audit[b['id']])+marker,1)
+        body=body.replace(marker,'<nav class="brand-tabs" aria-label="品牌资料导航"><a href="#packages">套餐档案</a><a href="#public-test">测速资料</a><a href="#price-check">价格核对</a></nav><section class="section" id="packages"><h2>套餐与流量档案</h2>',1)
+        panels=report_panel(b,test_records[b['id']])+price_panel(b,price_audit[b['id']])+'<details class="evidence-disclosure"><summary>展开入口与资料核对记录</summary>'+evidence_panel(b,verification[b['id']])+'</details>'
+        body=body.replace('</section><div class="article">','</section>'+panels+'<div class="article">',1)
         if test_records[b['id']]['status']!='not_collected':
             body=body.replace('以下为套餐资料与分析。','下方包含套餐分析与有出处的第三方测速摘录。')
     if article and article['cat']=='测评研究':
@@ -77,8 +80,11 @@ def page(path,title,desc,body,kind='WebPage',article=None):
     if path=='/methodology/':
         body=body.replace('</article>',coverage(brands,test_records)+audit_table(brands,price_audit)+'</article>',1)
     if path in ('/','/brands/'):
-        body+=entry_card()
+        body+=entry_card() if path=='/brands/' else ''
     body=enhance(body,path,bool(article))
+    nav_current='/brands/' if path.startswith('/brands/') else '/articles/' if path.startswith('/articles/') else '/topics/' if path.startswith('/topics/') else path
+    page_nav=nav.replace('href="'+nav_current+'"','href="'+nav_current+'" aria-current="page"')
+    route_class='route-home' if path=='/' else 'route-brand' if path.startswith('/brands/') and path!='/brands/' else 'route-journal' if path=='/articles/' or path.startswith('/articles/page/') else 'route-content'
     canonical=DOMAIN+path
     schema={'@context':'https://schema.org','@type':kind,'name':title,'description':desc,'url':canonical,'inLanguage':'zh-CN'}
     record_id=article['brands'][0] if article and article['cat']=='测评研究' else path.split('/')[2] if path.startswith('/brands/') and path!='/brands/' else None
@@ -87,17 +93,17 @@ def page(path,title,desc,body,kind='WebPage',article=None):
     if article:
         schema.update(headline=title,datePublished=DATE,dateModified=DATE,author={'@type':'Organization','name':'翻墙排行编辑资料组','url':DOMAIN+'/about/'},publisher={'@type':'Organization','name':'翻墙排行','url':DOMAIN},mainEntityOfPage=canonical)
     schema2={'@context':'https://schema.org','@type':'BreadcrumbList','itemListElement':[{'@type':'ListItem','position':1,'name':'翻墙排行','item':DOMAIN+'/'},{'@type':'ListItem','position':2,'name':title,'item':canonical}]} if path!='/' else {'@context':'https://schema.org','@type':'WebSite','name':'翻墙排行','url':DOMAIN,'inLanguage':'zh-CN'}
-    document=f'''<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{E(title)}｜翻墙排行</title><meta name="description" content="{E(desc)}"><meta name="keywords" content="梯子推荐,机场推荐,{E(title.split('：')[0])}"><meta name="robots" content="index,follow"><link rel="canonical" href="{canonical}"><meta property="og:type" content="{'article' if article else 'website'}"><meta property="og:site_name" content="翻墙排行"><meta property="og:title" content="{E(title)}"><meta property="og:description" content="{E(desc)}"><meta property="og:url" content="{canonical}"><meta property="og:locale" content="zh_CN"><meta name="theme-color" content="#090d17"><link rel="icon" type="image/svg+xml" href="/assets/favicon.svg"><link rel="stylesheet" href="/assets/style.css"><script src="/assets/app.js" defer></script><script type="application/ld+json">{json.dumps([schema,schema2],ensure_ascii=False).replace('</','<\\/')}</script></head><body><a class="skip" href="#main">跳到正文</a><header><div class="shell"><a class="logo" href="/">翻墙<b>排行</b></a><nav aria-label="主导航">{nav}</nav></div></header><main id="main" class="shell">{body}</main><footer><div class="shell"><a class="logo" href="/">翻墙<b>排行</b></a><p>读懂套餐，再做选择。价格资料有日期，测试结论有依据。</p><div class="footer-links"><a href="/about/">关于本站</a><a href="/methodology/">排行与测评方法</a><a href="/disclosure/">推广关系说明</a><a href="/sitemap/">网站地图</a></div><p>© 2026 翻墙排行 · fanqiangpaihang.wiki · 资料整理于 {DATE}</p><button id="motion-toggle" class="motion-button" type="button" aria-pressed="false">暂停背景动画</button></div></footer><a class="top-link" href="#main" aria-label="返回页面顶部">↑ 顶部</a></body></html>'''
+    document=f'''<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{E(title)}｜翻墙排行</title><meta name="description" content="{E(desc)}"><meta name="keywords" content="梯子推荐,机场推荐,{E(title.split('：')[0])}"><meta name="robots" content="index,follow"><link rel="canonical" href="{canonical}"><meta property="og:type" content="{'article' if article else 'website'}"><meta property="og:site_name" content="翻墙排行"><meta property="og:title" content="{E(title)}"><meta property="og:description" content="{E(desc)}"><meta property="og:url" content="{canonical}"><meta property="og:locale" content="zh_CN"><meta name="theme-color" content="#f6f4ee"><link rel="icon" type="image/svg+xml" href="/assets/favicon.svg"><link rel="stylesheet" href="/assets/style.css"><link rel="stylesheet" href="/assets/editorial.css"><script src="/assets/app.js" defer></script><script type="application/ld+json">{json.dumps([schema,schema2],ensure_ascii=False).replace('</','<\\/')}</script></head><body class="{route_class}"><a class="skip" href="#main">跳到正文</a><header><div class="shell"><a class="logo" href="/" aria-label="翻墙排行首页"><span class="logo-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>翻墙<b>排行</b><small>FANQIANGPAIHANG</small></span></a><nav aria-label="主导航">{page_nav}</nav></div></header><main id="main" class="shell">{body}</main><footer><div class="shell"><a class="logo" href="/" aria-label="翻墙排行首页"><span class="logo-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>翻墙<b>排行</b><small>FANQIANGPAIHANG</small></span></a><p>读懂套餐，再做选择。价格资料有日期，测试结论有依据。</p><div class="footer-links"><a href="/about/">关于本站</a><a href="/methodology/">排行与测评方法</a><a href="/disclosure/">推广关系说明</a><a href="/sitemap/">网站地图</a></div><p>© 2026 翻墙排行 · fanqiangpaihang.wiki · 资料整理于 {DATE}</p><button id="motion-toggle" class="motion-button" type="button" aria-pressed="false">暂停背景动画</button></div></footer><a class="top-link" href="#main" aria-label="返回页面顶部">↑ 顶部</a></body></html>'''
     target=DIST/path.lstrip('/')/'index.html' if path.endswith('/') else DIST/path.lstrip('/')
     target.parent.mkdir(parents=True,exist_ok=True)
     target.write_text(document,encoding='utf-8')
     pages.append({'path':path,'title':title,'description':desc})
 def card(url,title,desc,label='选购研究'):return f'<a class="card" href="{url}"><span class="label">{E(label)}</span><h3>{E(title)}</h3><p>{E(desc)}</p></a>'
-def brandcard(b):return card('/brands/'+b['id']+'/',b['name']+' '+b['english'],price(b),f"{b['rank']:02} / 品牌资料")
+def brandcard(b):return brand_card(b,price)
 def sources(bs):
     return '<h2>资料来源与范围</h2>'+para('本页套餐摘自站长指定参考博客，读取于2026-10-09；原记录日期见表。来源记录的检查日期不等于本站已实测或已核验当前在售状态。计算基于已记录金额与明确容量，优惠不计入价格。')+'<ul>'+''.join(f'<li><a href="https://jichangnetwork.blog/brands/{b["id"]}/" target="_blank" rel="noopener noreferrer">机场网络 · {E(b["name"])}资料页</a>；原页列示来源：<a href="{E(b["source"])}" target="_blank" rel="noopener noreferrer">{E(b["sourceLabel"])}</a>（原来源未由本站逐一重新验证）</li>' for b in bs)+'</ul>'
 def article_page(a):
-    toc='<div class="notice">'+E(a['desc'])+'</div>'
+    toc='<p class="article-deck">'+E(a['desc'])+'</p>'
     related=''.join(card('/articles/'+x['slug']+'/',x['title'],x['desc'],x['cat']) for x in articles if x['slug']!=a['slug'] and set(x.get('brands',[]))&set(a.get('brands',[])))
     if not related:related=''.join(card('/articles/'+x['slug']+'/',x['title'],x['desc'],x['cat']) for x in articles[:3])
     else:
@@ -186,9 +192,9 @@ for slug,title,label,intro,bs in topicdefs:
     related=[a for a in articles if a['slug'] in ('ranking-method','stable-shortlist','test-design','gb-cost','monthly-budget','comparison-workflow')]
     body=f'<div class="crumb"><a href="/topics/">严选专题</a> / {E(title)}</div><section class="hero"><div><div class="eyebrow">{E(label)}</div><h1>{E(title)}</h1><p>{E(intro)}</p></div><aside><strong>01–10</strong><p>读懂名次的依据，再核对自己的需求。</p><a href="/methodology/">查看完整排行方法</a></aside></section><section>{rows}</section><section class="section"><h2>专题阅读</h2><div class="grid">'+''.join(card('/articles/'+a['slug']+'/',a['title'],a['desc'],a['cat']) for a in related)+'</div></section>'
     page('/topics/'+slug+'/',title,title+'。'+intro,body,'CollectionPage')
-topiccards=''.join(card('/topics/'+slug+'/',title,intro,label) for slug,title,label,intro,bs in topicdefs)
+topiccards=topic_cards()
 page('/topics/','机场推荐专题：推荐、便宜与稳定严选','三个排行专题，分别公开站长推荐、参考价格与待测候选的编排依据。','<section class="section"><div class="eyebrow">THE SHORTLIST</div><h1>严选专题</h1><div class="grid">'+topiccards+'</div></section>','CollectionPage')
-page('/brands/','29个机场品牌库：套餐价格与流量档案','按站长给定顺序收录29个品牌，查看套餐、流量周期、优惠码与测评资料。','<section class="section"><div class="eyebrow">BRAND DIRECTORY</div><h1>品牌库</h1><p>29个品牌，按站长给定顺序收录。每个入口都有独立套餐档案。</p><div class="grid">'+''.join(brandcard(b) for b in brands)+'</div></section>','CollectionPage')
+page('/brands/','29个机场品牌库：套餐价格与流量档案','按站长给定顺序收录29个品牌，查看套餐、流量周期、优惠码与测评资料。','<section class="section"><div class="eyebrow">BRAND DIRECTORY</div><h1>品牌库</h1><p>29个品牌，按站长给定顺序收录。每个入口都有独立套餐档案。</p><div class="brand-list">'+''.join(brandcard(b) for b in brands)+'</div></section>','CollectionPage')
 for a in articles:article_page(a)
 for pnum in range(1,11):
     path='/articles/' if pnum==1 else f'/articles/page/{pnum}/'
@@ -199,13 +205,13 @@ page('/coupons/','机场优惠码汇总：11个品牌的站长提供代码','收
 page('/about/','关于翻墙排行：资料整理与编辑原则','了解翻墙排行的内容范围、编辑方式与资料边界。','<article class="article"><h1>关于翻墙排行</h1>'+section('内容范围','本站围绕梯子推荐与机场推荐整理品牌套餐、流量周期、预算计算与测评方法。品牌顺序和推广入口由站长提供，套餐参考资料来自站长指定博客机场网络。')+section('内容如何制作','文章由AI辅助完成资料整理和计算，采用公开来源、明确公式与证据边界，不虚构专家身份、账户体验或测速记录。每页提供适用范围，站长可在获得新价目与原始测试记录后修订。')+section('资料时间','本次读取参考资料的日期为2026-10-09。套餐原记录日期保留在各表中。读取旧资料不等于当前报价核验，本站不以新的页面日期掩盖原数据时间。')+'</article>')
 page('/methodology/','排行与机场测评方法：价格、排序和证据口径','公开推荐榜、便宜榜与稳定候选名单的规则，以及成本计算与未知字段处理方式。','<article class="article"><h1>排行与测评方法</h1>'+''.join(section(title,intro) for slug,title,label,intro,bs in topicdefs)+section('金额与容量计算','标称每GB成本等于周期总付款除以同周期明确GB；实际消耗成本等于付款除以实际用量；升级边际成本等于价差除以新增容量。年付除以十二仅为资金分摊，不能写成可购买月付价。容量不明、内部冲突、身份或运营待核实项不参与计算。')+section('测评证据','本站当前没有独立账户测试，所有品牌实测速率、延迟、稳定性与平台可用性均为未测。来源服务宣传只作为来源描述。未来实测需记录环境、任务、日期、样本次数、失败事件与恢复时间。')+section('版本控制','原始参考资料保存在项目data目录，展示资料保留容量冲突与活动提示。新数据应更新来源日期、文章与榜单，不静默合并不同版本最低字段。')+'</article>')
 page('/disclosure/','推广关系说明：品牌链接与推荐码','公开本站跳转链接的推荐关系及其与测评结论的区别。','<article class="article"><h1>推广关系说明</h1>'+section('链接关系','品牌库使用站长提供的带推荐代码链接。通过这些链接注册或购买，站长可能取得推广收益。链接按原始提供值保存，本站不声称已认证全部入口身份。')+section('排序关系','机场推荐与品牌库按站长给定顺序排列。便宜榜按公开参考金额规则排列。稳定严选展示待测候选，不是已完成的实测结果。推广收益不构成服务质量证据。')+section('优惠与价格','优惠码由站长提供，未完成结算验证。套餐价格采用参考资料，当前在售、资格和条款请在付款前确认。本站不把宣传内容变成实测结论。')+'</article>')
-home=f'<section class="hero"><div><div class="eyebrow">FANQIANGPAIHANG / 2026</div><h1>梯子推荐，<br>从<em>有依据的选择</em>开始。</h1><p>比较套餐、读懂流量、核对优惠。<br>把机场推荐的每一个选择，放在清晰的资料里。</p><a class="button" href="/topics/recommended/">查看机场推荐排行</a></div><aside><div class="numbers"><div><strong>29</strong><span>品牌收录</span></div><div><strong>150</strong><span>研究与指南</span></div><div><strong>03</strong><span>严选专题</span></div></div><p>推荐榜按站长顺序。价格榜有计算口径。稳定候选公开待测状态。</p></aside></section><section class="section"><div class="section-head"><div><div class="eyebrow">THE SHORTLIST</div><h2>从你的需求，找到方向</h2></div><a href="/methodology/">了解排行依据</a></div><div class="grid">{topiccards}</div></section><section class="section"><div class="section-head"><div><div class="eyebrow">EDITOR’S READING</div><h2>先读懂，再决定</h2></div><a href="/articles/">浏览全部150篇文章</a></div><div class="grid">'+''.join(card('/articles/'+a['slug']+'/',a['title'],a['desc'],a['cat']) for a in articles if a['slug'] in ('first-choice','annual-payment','test-design'))+'</div></section><section class="section"><div class="section-head"><div><div class="eyebrow">BRAND DIRECTORY</div><h2>品牌库 · 推荐前十</h2></div><a href="/brands/">全部29个品牌</a></div><div class="grid">'+''.join(brandcard(b) for b in brands[:10])+'</div></section><div class="notice">套餐来自参考资料，保留原记录日期与差异说明。推广链接及优惠码由站长提供，实测指标尚未验证。</div>'
+home=home_layout(brands,articles,price)
 page('/','梯子推荐与机场推荐：品牌库、严选排行与选购指南','翻墙排行整理29个机场品牌、150篇套餐研究与选购指南，提供机场推荐前十、便宜机场严选和稳定性待测候选。',home)
 mapbody='<article class="article"><h1>网站地图</h1><ul>'+''.join(f'<li><a href="{p["path"]}">{E(p["title"])}</a></li>' for p in pages)+'</ul></article>'
 page('/sitemap/','翻墙排行网站地图','浏览品牌详情、排行专题与全部150篇文章的链接。',mapbody)
 (DIST/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(f'<url><loc>{DOMAIN}{p["path"]}</loc><lastmod>{DATE}</lastmod></url>' for p in pages)+'</urlset>',encoding='utf-8')
 (DIST/'robots.txt').write_text('User-agent: *\nAllow: /\nSitemap: '+DOMAIN+'/sitemap.xml\n',encoding='utf-8')
-(DIST/'404.html').write_text('<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>页面未找到｜翻墙排行</title><link rel="stylesheet" href="/assets/style.css"><main class="shell"><h1>页面未找到</h1><p>请从品牌库、专题或文章目录继续阅读。</p><a href="/">返回首页</a></main></html>',encoding='utf-8')
+(DIST/'404.html').write_text('<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>页面未找到｜翻墙排行</title><link rel="stylesheet" href="/assets/style.css"><link rel="stylesheet" href="/assets/editorial.css"><main class="shell"><h1>页面未找到</h1><p>请从品牌库、专题或文章目录继续阅读。</p><a href="/">返回首页</a></main></html>',encoding='utf-8')
 (ROOT/'data/brands.json').write_text(json.dumps(brands,ensure_ascii=False,indent=2),encoding='utf-8')
 (ROOT/'data/articles.json').write_text(json.dumps(articles,ensure_ascii=False,indent=2),encoding='utf-8')
 (ROOT/'data/pages.json').write_text(json.dumps(pages,ensure_ascii=False,indent=2),encoding='utf-8')
