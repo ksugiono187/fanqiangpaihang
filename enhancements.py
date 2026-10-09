@@ -2,6 +2,7 @@ import re, html
 
 def enhance(body, path, is_article):
     esc = lambda s: html.escape(s, quote=True)
+    body = body.replace('<div class="table-wrap">', '<div class="table-wrap" tabindex="0" role="region" aria-label="横向数据表，可用左右方向键查看完整列">')
     if is_article:
         headings = []
         def heading(m):

@@ -5,6 +5,7 @@
 .table-wrap table{min-width:620px}
 .third-party-report table{min-width:680px}
 .table-wrap{max-width:100%;overscroll-behavior-x:contain}
+.table-wrap:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
 #public-test,#price-check,#price-audit,#third-party-tests{scroll-margin-top:24px}
 .article p{overflow-wrap:anywhere}
 @media(max-width:760px){.table-wrap th,.table-wrap td{padding:12px 10px}.third-party-report table{white-space:nowrap}.article{margin-top:30px}.article h1{line-height:1.4;letter-spacing:0}.article .section{margin:32px 0}.article-toc nav{line-height:1.7}}
