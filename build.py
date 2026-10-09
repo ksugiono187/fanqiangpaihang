@@ -2,6 +2,7 @@ from pathlib import Path
 import json, html, math, re, shutil
 from urllib.parse import urlparse
 from enhancements import enhance
+from editorial import evidence_panel, focused_guide
 
 ROOT=Path(__file__).parent
 DIST=ROOT/'dist'
@@ -12,6 +13,7 @@ source=json.loads((ROOT/'data/reference-data.json').read_text(encoding='utf-8-si
 order='breezenet flycat twilight dalaocloud firefly civet flashleap worryfree kuajie 2mao sogo yuzhou 1fly edgenova kosing sujie kuaili stardream lightspeed v2yun u1s1 jilian globalcloud guangnianti flyv laddercloud wavenet lingdong invisible'.split()
 coupons=dict(breezenet='weifeng90',flycat='flycat888',worryfree='wuyou666',flashleap='shanyue',firefly='firefly',stardream='nmw888',lightspeed='jichangcha09',v2yun='rabbit',u1s1='U1S1',globalcloud='tt88',yuzhou='YUZHOU553')
 byid={b['id']:b for b in source['brands']}
+verification={v['id']:v for v in json.loads((ROOT/'data/verification.json').read_text(encoding='utf-8'))}
 brands=[byid[x] for x in order]
 for i,b in enumerate(brands):
     b['rank']=i+1
@@ -19,6 +21,7 @@ for i,b in enumerate(brands):
     b['couponStatus']='站长提供，尚未结算验证' if b['coupon'] else '本次未提供优惠码'
     b['importedAt']=DATE
     b['measurementStatus']='未进行独立实测'
+    b['verification']=verification[b['id']]
     b.pop('couponTerms',None)
 excluded={'firefly','jilian','kosing'}
 
@@ -52,10 +55,17 @@ def table(b,plans=None):
 pages=[]
 favicon='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><rect width="40" height="40" rx="8" fill="#111827"/><path d="M9 29V22H14V29M18 29V15H23V29M27 29V8H32V29" fill="#88f3c9"/></svg>'
 (DIST/'assets/favicon.svg').write_text(favicon,encoding='utf-8')
-for asset in ('app.js','style.css'):
+for asset in ('app.js','style.css','test-record-template.txt'):
     shutil.copyfile(ROOT/'assets'/asset,DIST/'assets'/asset)
 nav='<a href="#site-search">搜索</a><a href="/topics/">严选专题</a><a href="/brands/">品牌库</a><a href="/articles/">文章</a><a href="/coupons/">优惠码</a>'
 def page(path,title,desc,body,kind='WebPage',article=None):
+    if path.startswith('/brands/') and path!='/brands/':
+        b=byid[path.split('/')[2]]
+        marker='<section class="section"><h2>套餐与流量档案</h2>'
+        body=body.replace(marker,evidence_panel(b,verification[b['id']])+marker,1)
+    if article and article['cat']=='测评研究':
+        b=byid[article['brands'][0]]
+        body=body.replace('<h2>已知资料与需要确认的内容</h2>',evidence_panel(b,verification[b['id']])+'<h2>已知资料与需要确认的内容</h2>',1)
     body=enhance(body,path,bool(article))
     canonical=DOMAIN+path
     schema={'@context':'https://schema.org','@type':kind,'name':title,'description':desc,'url':canonical,'inLanguage':'zh-CN'}
@@ -84,6 +94,7 @@ def article_page(a):
 
 articles=[]
 def add(slug,title,desc,body,cat,bs=[]):
+    title=title.replace('机场机场','机场')
     text=re.sub('<[^>]+>','',body)
     articles.append(dict(slug=slug,title=title,desc=desc,body=body,cat=cat,brands=[b['id'] for b in bs],read=max(3,math.ceil(len(text)/450))))
 
@@ -136,6 +147,7 @@ guides=json.loads((ROOT/'guides.json').read_text(encoding='utf-8'))
 assert len(guides)==34,len(guides)
 for g in guides:
     body=''.join(section(t,s) for t,s in g['sections'])
+    body+=focused_guide(g['slug'],brands,monthly,excluded)
     if g['slug']=='latency-throughput':body+='<p>方法参考：<a href="https://blog.cloudflare.com/how-does-cloudflares-speed-test-really-work/" target="_blank" rel="noopener noreferrer">Cloudflare · 网络质量测试方法</a></p>'
     add(g['slug'],g['title'],g['sections'][0][1][:110],body,'选购指南')
 assert len(articles)==150
