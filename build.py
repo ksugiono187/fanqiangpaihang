@@ -3,6 +3,7 @@ import json, html, math, re, shutil
 from urllib.parse import urlparse
 from enhancements import enhance
 from presentation import home_layout, brand_card, topic_cards
+from guide_depth import EXTRAS, extra_guide, brand_brief
 from editorial import evidence_panel, focused_guide
 from measurements import report_panel, coverage, entry_card
 from content_revision import revise, price_panel, audit_table
@@ -110,6 +111,9 @@ def article_page(a):
         # Use a bounded related set, preserving whole card markup.
         xs=[x for x in articles if x['slug']!=a['slug'] and set(x.get('brands',[]))&set(a.get('brands',[]))][:3]
         related=''.join(card('/articles/'+x['slug']+'/',x['title'],x['desc'],x['cat']) for x in xs)
+    if a['slug'] in EXTRAS:
+        xs=[x for x in articles if x['slug'] in EXTRAS[a['slug']]['related']]
+        related=''.join(card('/articles/'+x['slug']+'/',x['title'],x['desc'],x['cat']) for x in xs)
     body=f'<div class="crumb"><a href="/articles/">文章</a> / {E(a["cat"])}</div><article class="article"><span class="eyebrow">{E(a["cat"])}</span><h1>{E(a["title"])}</h1><div class="meta">翻墙排行编辑资料组 · {DATE} · {a["read"]} 分钟阅读 · 资料分析</div>{toc}{a["body"]}<h2>本页结论的使用边界</h2>{para("本文为套餐资料分析或测评方法指南。本站未开展独立账户测速，不对稳定性、解锁率、运营持续性作实测保证。购买时请核对当前套餐与结算条件。")}</article><section class="section"><h2>继续阅读</h2><div class="grid">{related}</div></section>'
     page('/articles/'+a['slug']+'/',a['title'],a['desc'],body,'Article',a)
 
@@ -172,6 +176,7 @@ assert len(guides)==34,len(guides)
 for g in guides:
     body=''.join(section(t,s) for t,s in g['sections'])
     body+=focused_guide(g['slug'],brands,monthly,excluded)
+    body+=extra_guide(g['slug'],{x['slug']:x['title'] for x in guides})
     if g['slug']=='latency-throughput':body+='<p>方法参考：<a href="https://blog.cloudflare.com/how-does-cloudflares-speed-test-really-work/" target="_blank" rel="noopener noreferrer">Cloudflare · 网络质量测试方法</a></p>'
     add(g['slug'],g['title'],g['sections'][0][1][:110],body,'选购指南')
 assert len(articles)==150
@@ -184,6 +189,7 @@ for b in brands:
     for p in b['plans']:
         if p.get('features'):features+='<details><summary>'+E(p['name'])+' · 来源列示的服务说明</summary><ul>'+''.join('<li>'+E(s)+'</li>' for s in p['features'])+'</ul><p class="meta">以上为来源描述，未由本站独立实测验证。</p></details>'
     body=f'<div class="crumb"><a href="/brands/">品牌库</a> / {E(b["name"])}</div><section class="hero"><div><div class="eyebrow">BRAND {b["rank"]:02} / {E(b["english"])}</div><h1>{E(b["name"])}</h1><p>{E(b["profile"]["headline"])}</p><a class="button" href="{E(b["url"])}" target="_blank" rel="sponsored noopener noreferrer">前往站长提供的官网入口</a></div><aside><strong>{E(price(b))}</strong><p>参考价目 · 非当前报价保证</p>{coupon}<p class="meta">优惠码尚未结算验证；链接带推荐代码，可能产生推广收益。</p></aside></section><div class="notice">{E(b["note"])} 本站未进行独立测速，以下为套餐资料与分析。</div><section class="section"><h2>套餐与流量档案</h2>{table(b)}{features}</section><div class="article">{section("付款方式与容量含义",b["profile"]["cycleInsight"])}{section("月付成本观察",b["profile"]["monthlyInsight"])}{section("版本差异与购买核对",b["profile"]["tradeoff"]+" "+b["profile"]["verifyInsight"])}{section("线路与测评状态","参考线路描述："+b["line"]+"。本站没有独立账户测试记录，延迟、吞吐、晚高峰任务成功率与平台可用性均未测。不使用虚构评分或测速数字。")}{sources([b])}</div><section class="section"><h2>品牌专题阅读</h2><div class="grid">{links}</div></section>'
+    body=body.replace('<section class="section"><h2>套餐与流量档案</h2>',brand_brief(b,monthly,excluded)+'<section class="section"><h2>套餐与流量档案</h2>',1)
     page('/brands/'+b['id']+'/',b['name']+'套餐价格、流量与测评资料',f'{b["name"]}品牌档案：完整套餐记录、付款周期、流量口径、优惠信息与版本核对说明。',body)
 
 topicdefs=[('recommended','机场推荐排行 1–10','站长给定顺序','按站长提供的前十名排列，代表站长推荐顺序，不是独立测速排名。',brands[:10]),('budget','便宜机场严选排行 1–10','参考月付金额排序','按每品牌明确容量的最低参考月付金额升序；同价按站长收录顺序。排除Firefly、极连云的套餐归属疑点及可信云的运营待核实记录。历史活动和小包仍需确认在售。',sorted([b for b in brands if b['id'] not in excluded and monthly(b)],key=lambda b:(monthly(b)[0]['price'],b['rank']))[:10]),('stable','稳定机场严选候选 1–10','待测名单 · 非稳定性实测排名','目前没有一致条件的独立测试记录，因此按站长前十推荐顺序展示待测候选。序号不代表稳定性优劣；完成多日任务、失败记录与恢复时间观察后才能发布实测排名。',brands[:10])]

@@ -25,4 +25,21 @@ def home_layout(brands, articles, price):
     cards=''.join(f'<a class="reading-card" href="/articles/{a["slug"]}/"><div class="reading-art"><span>{num}</span><small>{tag}</small><h3>{headline}</h3><i aria-hidden="true">↗</i></div><div class="reading-caption"><span>{E(a["cat"])} · {a["read"]} 分钟阅读</span><h3>{E(a["title"])}</h3><p>{desc}</p></div></a>' for a,(num,tag,headline,desc) in zip(chosen,teasers))
     reading='<section class="section"><div class="section-head"><div><span class="eyebrow">03 / 编辑选读</span><h2>值得读完的几篇</h2></div><a class="text-link" href="/articles/">浏览 150 篇文章 →</a></div><div class="reading-grid">'+cards+'</div></section>'
     scope='<div class="home-scope"><span>资料说明</span><p>本站整理公开资料，未开展独立账户测速。推荐顺序由站长提供，品牌链接可能产生推广收益。<a href="/disclosure/">查看推广关系说明 ↗</a></p></div>'
-    return '<div class="edition-line"><span>翻墙排行 / 选购与评测资料</span><span>资料整理 · 2026.10</span></div>'+cover+facts+topic+directory+reading+scope
+    groups=[
+        ('预算与容量','把套餐金额放回实际用量中比较。','first-choice monthly-budget gb-cost upgrade-cost idle-quota light-usage medium-usage heavy-usage traffic-multiplier'),
+        ('付款与购买','理解付款周期、额度和结算条件。','annual-payment payg-basics quota-period low-frequency coupon-validation renewal-price refund-terms purchase-record three-month-budget'),
+        ('设备与任务','把设备需求与日常任务写进选择标准。','device-limit client-compatibility peak-hours latency-throughput packet-loss streaming-evidence meeting-tasks backup-plan'),
+        ('测评与证据','读懂来源、样本和排名的使用范围。','test-design line-labels source-conflict brand-identity ranking-method review-transparency comparison-workflow stable-shortlist'),
+    ]
+    lookup={a['slug']:a for a in articles}
+    panels=[]
+    for i,(name,desc,slugs) in enumerate(groups,1):
+        links=''.join(f'<li><a href="/articles/{slug}/"><span>{E(lookup[slug]["title"])}</span><small>{lookup[slug]["read"]} 分钟 <i aria-hidden="true">↗</i></small></a></li>' for slug in slugs.split())
+        panels.append(f'<section class="knowledge-group"><div class="knowledge-heading"><span>0{i}</span><div><h3>{name}</h3><p>{desc}</p></div><small>{len(slugs.split())} 篇</small></div><ul>{links}</ul></section>')
+    knowledge='<section class="section" id="guide-library"><div class="section-head"><div><span class="eyebrow">04 / 选购知识库</span><h2>把问题读清楚</h2></div><a class="text-link" href="/articles/first-choice/">从选购流程开始 →</a></div><p class="section-intro">34 篇指南，包含情景算例、条件对照与操作清单。按你正在面对的问题进入。</p><div class="knowledge-grid">'+''.join(panels)+'</div></section>'
+    studies=[]
+    for i,slug in enumerate(('breezenet-monthly','flycat-cycles','twilight-review','breezenet-vs-flycat','worryfree-monthly','stardream-review'),1):
+        a=lookup[slug]
+        studies.append(f'<a class="research-entry" href="/articles/{slug}/"><span>0{i}</span><div><small>{E(a["cat"])} · {a["read"]} 分钟</small><h3>{E(a["title"])}</h3><p>{E(a["desc"])}</p></div><i aria-hidden="true">↗</i></a>')
+    research='<section class="section"><div class="section-head"><div><span class="eyebrow">05 / 品牌研究</span><h2>从档案走到具体分析</h2></div><a class="text-link" href="/articles/">查看全部研究 →</a></div><div class="research-grid">'+''.join(studies)+'</div></section>'
+    return '<div class="edition-line"><span>翻墙排行 / 选购与评测资料</span><span>资料整理 · 2026.10</span></div>'+cover+facts+topic+directory+reading+knowledge+research+scope
