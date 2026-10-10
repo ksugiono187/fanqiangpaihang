@@ -7,7 +7,8 @@ root=Path(__file__).parent
 articles=json.loads((root/'data/articles.json').read_text(encoding='utf-8'))
 brands=json.loads((root/'data/brands.json').read_text(encoding='utf-8'))
 audit=json.loads((root/'data/price-audit.json').read_text(encoding='utf-8'))
-assert len(audit)==29 and sum(bool(r['reviewedAt']) for r in audit)==3
+assert len(audit)==29 and all(r['reviewedAt']=='2026-10-10' and r.get('publicCheck') for r in audit)
+assert sum(r['publicCheck']['status']==200 for r in audit)==27
 assert all('尚未取得当前购买页' in r['currentPriceStatus'] for r in audit)
 byid={b['id']:b for b in brands}
 byarticle={a['slug']:a for a in articles}
@@ -45,5 +46,5 @@ class Ids(HTMLParser):
 for p in (root/'dist').rglob('index.html'):
     parser=Ids();parser.feed(p.read_text(encoding='utf-8'))
     assert len(parser.ids)==len(set(parser.ids)),p
-report={'brand_articles_revised':116,'before_repeated_paragraph_occurrences':old[0] if old else None,'after_repeated_paragraph_occurrences':current[0],'largest_repeated_paragraph_group':current[1],'price_checks':3,'current_price_confirmations':0,'scenario_calculations_and_anchors':'passed'}
+report={'brand_articles_revised':116,'before_repeated_paragraph_occurrences':old[0] if old else None,'after_repeated_paragraph_occurrences':current[0],'largest_repeated_paragraph_group':current[1],'price_checks':len(audit),'current_price_confirmations':0,'scenario_calculations_and_anchors':'passed'}
 print(json.dumps(report,ensure_ascii=False))

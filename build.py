@@ -4,6 +4,7 @@ from urllib.parse import urlparse
 from enhancements import enhance
 from presentation import home_layout, brand_card, topic_cards
 from guide_depth import EXTRAS, extra_guide, brand_brief
+from comparison import public_brands, render_comparison, render_updates
 from editorial import evidence_panel, focused_guide
 from measurements import report_panel, coverage, entry_card
 from content_revision import revise, price_panel, audit_table
@@ -63,9 +64,9 @@ def table(b,plans=None):
 pages=[]
 favicon='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><rect width="40" height="40" rx="4" fill="#182e36"/><path d="M9 29V22H14V29M18 29V15H23V29M27 29V8H32V29" fill="#e5c997"/></svg>'
 (DIST/'assets/favicon.svg').write_text(favicon,encoding='utf-8')
-for asset in ('app.js','style.css','editorial.css','test-record-template.txt'):
+for asset in ('app.js','style.css','editorial.css','test-record-template.txt','compare.mjs','comparison-core.mjs'):
     shutil.copyfile(ROOT/'assets'/asset,DIST/'assets'/asset)
-nav='<a href="#site-search">搜索</a><a href="/topics/">严选专题</a><a href="/brands/">品牌库</a><a href="/articles/">文章</a><a href="/coupons/">优惠码</a>'
+nav='<a href="#site-search">搜索</a><a href="/topics/">严选专题</a><a href="/brands/">品牌库</a><a href="/compare/">比较</a><a href="/articles/">文章</a><a href="/coupons/">优惠码</a>'
 def page(path,title,desc,body,kind='WebPage',article=None):
     if path.startswith('/brands/') and path!='/brands/':
         b=byid[path.split('/')[2]]
@@ -212,10 +213,14 @@ page('/about/','关于翻墙排行：资料整理与编辑原则','了解翻墙�
 page('/methodology/','排行与机场测评方法：价格、排序和证据口径','公开推荐榜、便宜榜与稳定候选名单的规则，以及成本计算与未知字段处理方式。','<article class="article"><h1>排行与测评方法</h1>'+''.join(section(title,intro) for slug,title,label,intro,bs in topicdefs)+section('金额与容量计算','标称每GB成本等于周期总付款除以同周期明确GB；实际消耗成本等于付款除以实际用量；升级边际成本等于价差除以新增容量。年付除以十二仅为资金分摊，不能写成可购买月付价。容量不明、内部冲突、身份或运营待核实项不参与计算。')+section('测评证据','本站当前没有独立账户测试，所有品牌实测速率、延迟、稳定性与平台可用性均为未测。来源服务宣传只作为来源描述。未来实测需记录环境、任务、日期、样本次数、失败事件与恢复时间。')+section('版本控制','原始参考资料保存在项目data目录，展示资料保留容量冲突与活动提示。新数据应更新来源日期、文章与榜单，不静默合并不同版本最低字段。')+'</article>')
 page('/disclosure/','推广关系说明：品牌链接与推荐码','公开本站跳转链接的推荐关系及其与测评结论的区别。','<article class="article"><h1>推广关系说明</h1>'+section('链接关系','品牌库使用站长提供的带推荐代码链接。通过这些链接注册或购买，站长可能取得推广收益。链接按原始提供值保存，本站不声称已认证全部入口身份。')+section('排序关系','机场推荐与品牌库按站长给定顺序排列。便宜榜按公开参考金额规则排列。稳定严选展示待测候选，不是已完成的实测结果。推广收益不构成服务质量证据。')+section('优惠与价格','优惠码由站长提供，未完成结算验证。套餐价格采用参考资料，当前在售、资格和条款请在付款前确认。本站不把宣传内容变成实测结论。')+'</article>')
 home=home_layout(brands,articles,price)
+home=home.replace('<div class="facts-strip">','<div class="compare-promo"><div><span class="eyebrow">COMPARE / 同需求比较</span><h2>把两个品牌放在一起看。</h2><p>按预算和月用量对照完整付款、容量余量与资料依据。</p></div><a class="button" href="/compare/">打开品牌比较 →</a><a class="text-link" href="/updates/">查看资料更新记录 →</a></div><div class="facts-strip">',1)
+page('/compare/','机场品牌比较工具：按预算、流量与证据对照','选择最多三个机场品牌，按月用量和预算比较历史套餐付款、剩余额度与第三方报告范围。',render_comparison(brands,monthly,excluded),'CollectionPage')
+page('/updates/','资料更新与纠错：29个品牌入口核对记录','公开2026-10-10的29个品牌入口读取结果、价格未确认事项、内容更新与资料纠错方式。',render_updates(brands))
+(DIST/'assets/compare-data.json').write_text(json.dumps(public_brands(brands,monthly,excluded),ensure_ascii=False),encoding='utf-8')
 page('/','梯子推荐与机场推荐：品牌库、严选排行与选购指南','翻墙排行整理29个机场品牌、150篇套餐研究与选购指南，提供机场推荐前十、便宜机场严选和稳定性待测候选。',home)
 mapbody='<article class="article"><h1>网站地图</h1><ul>'+''.join(f'<li><a href="{p["path"]}">{E(p["title"])}</a></li>' for p in pages)+'</ul></article>'
 page('/sitemap/','翻墙排行网站地图','浏览品牌详情、排行专题与全部150篇文章的链接。',mapbody)
-(DIST/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(f'<url><loc>{DOMAIN}{p["path"]}</loc><lastmod>{DATE}</lastmod></url>' for p in pages)+'</urlset>',encoding='utf-8')
+(DIST/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(f'<url><loc>{DOMAIN}{p["path"]}</loc><lastmod>{"2026-10-10" if p["path"] in ("/compare/","/updates/","/","/sitemap/","/methodology/") or p["path"].startswith("/brands/") else DATE}</lastmod></url>' for p in pages)+'</urlset>',encoding='utf-8')
 (DIST/'robots.txt').write_text('User-agent: *\nAllow: /\nSitemap: '+DOMAIN+'/sitemap.xml\n',encoding='utf-8')
 (DIST/'404.html').write_text('<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>页面未找到｜翻墙排行</title><link rel="stylesheet" href="/assets/style.css"><link rel="stylesheet" href="/assets/editorial.css"><main class="shell"><h1>页面未找到</h1><p>请从品牌库、专题或文章目录继续阅读。</p><a href="/">返回首页</a></main></html>',encoding='utf-8')
 (ROOT/'data/brands.json').write_text(json.dumps(brands,ensure_ascii=False,indent=2),encoding='utf-8')

@@ -48,6 +48,7 @@ assert len(titles)==len(set(titles)), 'Duplicate titles'
 assert len(descs)==len(set(descs)), 'Duplicate descriptions'
 sitemap=ET.parse(dist/'sitemap.xml')
 locs=[e.text for e in sitemap.findall('.//{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
-assert len(locs)==len(pages)==200
+assert len(locs)==len(pages)==202
+assert {'/compare/','/updates/'}.issubset({p['path'] for p in pages})
 assert set(locs)=={'https://fanqiangpaihang.wiki'+p['path'] for p in pages}
 print(json.dumps({'pages':len(pages),'articles':len(articles),'brands':len(brands),'plans':sum(len(b['plans']) for b in brands),'coupons':11,'broken_internal_links':len(broken),'unique_tdk':True,'sitemap_verified':True},ensure_ascii=True))

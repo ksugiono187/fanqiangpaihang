@@ -5,8 +5,21 @@
       "2026-08-08"
     ],
     "currentPriceStatus": "尚未取得当前购买页及结算证据；以下金额为历史参考。",
-    "reviewedAt": null,
-    "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    "reviewedAt": "2026-10-10",
+    "finding": "公开HTTP读取返回“线路检测”页面；未取得公开完整套餐及结算证据。 浏览器另看到微风网络注册页；未创建账号。",
+    "previousReview": {
+      "date": null,
+      "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    },
+    "publicCheck": {
+      "checkedAt": "2026-10-10",
+      "entry": "https://edp01.breezenetaff.com/#/?code=4KDOroY0",
+      "status": 200,
+      "finalUrl": "https://edp01.breezenetaff.com/#/?code=4KDOroY0",
+      "title": "线路检测",
+      "method": "公开HTTP读取；未执行页面脚本，未登录",
+      "browserObservation": "跳转至微风网络注册页，无公开套餐卡片"
+    }
   },
   {
     "id": "flycat",
@@ -14,8 +27,21 @@
       "2026-08-09"
     ],
     "currentPriceStatus": "尚未取得当前购买页及结算证据；以下金额为历史参考。",
-    "reviewedAt": null,
-    "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    "reviewedAt": "2026-10-10",
+    "finding": "公开HTTP读取本次未取得可用响应；不据此认定停运，也不确认现价。 浏览器进入线路检测页，目标列表出现civetnetfttt1域名；当前入口目标的品牌归属待核对。",
+    "previousReview": {
+      "date": null,
+      "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    },
+    "publicCheck": {
+      "checkedAt": "2026-10-10",
+      "entry": "https://flycat1.flycatvipaff.cc/#/?code=Os3T3OxW",
+      "status": null,
+      "finalUrl": null,
+      "title": "",
+      "method": "公开HTTP读取；未执行页面脚本，未登录",
+      "browserObservation": "s1.fei9sjf.xyz线路检测页；目标含civetnetfttt1域名，未确认品牌归属"
+    }
   },
   {
     "id": "twilight",
@@ -23,8 +49,20 @@
       "2026-08-08"
     ],
     "currentPriceStatus": "尚未取得当前购买页及结算证据；以下金额为历史参考。",
-    "reviewedAt": null,
-    "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    "reviewedAt": "2026-10-10",
+    "finding": "公开HTTP读取返回“暮光加速 线路检测”页面；未取得公开完整套餐及结算证据。",
+    "previousReview": {
+      "date": null,
+      "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    },
+    "publicCheck": {
+      "checkedAt": "2026-10-10",
+      "entry": "https://varnexa.twilightaff.com/#/?code=3qqonTlH",
+      "status": 200,
+      "finalUrl": "https://varnexa.twilightaff.com/#/?code=3qqonTlH",
+      "title": "暮光加速 线路检测",
+      "method": "公开HTTP读取；未执行页面脚本，未登录"
+    }
   },
   {
     "id": "dalaocloud",
@@ -32,8 +70,20 @@
       "2026-10-05"
     ],
     "currentPriceStatus": "尚未取得当前购买页及结算证据；以下金额为历史参考。",
-    "reviewedAt": null,
-    "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    "reviewedAt": "2026-10-10",
+    "finding": "公开HTTP读取返回“大佬云线路检测”页面；未取得公开完整套餐及结算证据。",
+    "previousReview": {
+      "date": null,
+      "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    },
+    "publicCheck": {
+      "checkedAt": "2026-10-10",
+      "entry": "https://vip.dalaocloud.com/#/?code=Cp2sfYZg",
+      "status": 200,
+      "finalUrl": "https://vip.dalaocloud.com/#/?code=Cp2sfYZg",
+      "title": "大佬云线路检测",
+      "method": "公开HTTP读取；未执行页面脚本，未登录"
+    }
   },
   {
     "id": "firefly",
@@ -41,8 +91,20 @@
       "2026-08-08"
     ],
     "currentPriceStatus": "尚未取得当前购买页及结算证据；以下金额为历史参考。",
-    "reviewedAt": "2026-10-09",
-    "finding": "本轮打开Firefly注册页；无公开套餐卡片。另一资料页仍使用飞为（Firefly）标题，旧表归属保持待核对。"
+    "reviewedAt": "2026-10-10",
+    "finding": "公开HTTP读取返回“线路检测”页面；未取得公开完整套餐及结算证据。",
+    "previousReview": {
+      "date": "2026-10-09",
+      "finding": "本轮打开Firefly注册页；无公开套餐卡片。另一资料页仍使用飞为（Firefly）标题，旧表归属保持待核对。"
+    },
+    "publicCheck": {
+      "checkedAt": "2026-10-10",
+      "entry": "https://vip02.fireflyaff.com/#/?code=Fes6j9rn",
+      "status": 200,
+      "finalUrl": "https://vip02.fireflyaff.com/#/?code=Fes6j9rn",
+      "title": "线路检测",
+      "method": "公开HTTP读取；未执行页面脚本，未登录"
+    }
   },
   {
     "id": "civet",
@@ -50,8 +112,20 @@
       "2026-08-08"
     ],
     "currentPriceStatus": "尚未取得当前购买页及结算证据；以下金额为历史参考。",
-    "reviewedAt": null,
-    "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    "reviewedAt": "2026-10-10",
+    "finding": "公开HTTP读取返回“线路检测”页面；未取得公开完整套餐及结算证据。",
+    "previousReview": {
+      "date": null,
+      "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    },
+    "publicCheck": {
+      "checkedAt": "2026-10-10",
+      "entry": "https://vip02.civetaff.com/#/?code=kZlRw46w",
+      "status": 200,
+      "finalUrl": "https://vip02.civetaff.com/#/?code=kZlRw46w",
+      "title": "线路检测",
+      "method": "公开HTTP读取；未执行页面脚本，未登录"
+    }
   },
   {
     "id": "flashleap",
@@ -59,8 +133,20 @@
       "2026-08-08"
     ],
     "currentPriceStatus": "尚未取得当前购买页及结算证据；以下金额为历史参考。",
-    "reviewedAt": null,
-    "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    "reviewedAt": "2026-10-10",
+    "finding": "公开HTTP读取返回“线路检测”页面；未取得公开完整套餐及结算证据。",
+    "previousReview": {
+      "date": null,
+      "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    },
+    "publicCheck": {
+      "checkedAt": "2026-10-10",
+      "entry": "https://vip02.flashleapaff.com/#/?code=FkCGEeaC",
+      "status": 200,
+      "finalUrl": "https://vip02.flashleapaff.com/#/?code=FkCGEeaC",
+      "title": "线路检测",
+      "method": "公开HTTP读取；未执行页面脚本，未登录"
+    }
   },
   {
     "id": "worryfree",
@@ -68,8 +154,20 @@
       "2026-08-08"
     ],
     "currentPriceStatus": "尚未取得当前购买页及结算证据；以下金额为历史参考。",
-    "reviewedAt": null,
-    "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    "reviewedAt": "2026-10-10",
+    "finding": "公开HTTP读取返回“线路检测”页面；未取得公开完整套餐及结算证据。",
+    "previousReview": {
+      "date": null,
+      "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    },
+    "publicCheck": {
+      "checkedAt": "2026-10-10",
+      "entry": "https://wep01.worryfreeaff.com/#/?code=56A0RTpU",
+      "status": 200,
+      "finalUrl": "https://wep01.worryfreeaff.com/#/?code=56A0RTpU",
+      "title": "线路检测",
+      "method": "公开HTTP读取；未执行页面脚本，未登录"
+    }
   },
   {
     "id": "kuajie",
@@ -77,8 +175,20 @@
       "2026-08-08"
     ],
     "currentPriceStatus": "尚未取得当前购买页及结算证据；以下金额为历史参考。",
-    "reviewedAt": null,
-    "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    "reviewedAt": "2026-10-10",
+    "finding": "公开HTTP读取返回“线路检测”页面；未取得公开完整套餐及结算证据。",
+    "previousReview": {
+      "date": null,
+      "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    },
+    "publicCheck": {
+      "checkedAt": "2026-10-10",
+      "entry": "https://vip02.kuajieaff.com/#/?code=VfWeYwHM",
+      "status": 200,
+      "finalUrl": "https://vip02.kuajieaff.com/#/?code=VfWeYwHM",
+      "title": "线路检测",
+      "method": "公开HTTP读取；未执行页面脚本，未登录"
+    }
   },
   {
     "id": "2mao",
@@ -86,8 +196,20 @@
       "2026-08-09"
     ],
     "currentPriceStatus": "尚未取得当前购买页及结算证据；以下金额为历史参考。",
-    "reviewedAt": null,
-    "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    "reviewedAt": "2026-10-10",
+    "finding": "公开HTTP读取返回“二猫云 线路检测”页面；未取得公开完整套餐及结算证据。",
+    "previousReview": {
+      "date": null,
+      "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    },
+    "publicCheck": {
+      "checkedAt": "2026-10-10",
+      "entry": "https://waaa.2maoyunaff.cc/#/?code=uHeyKG44",
+      "status": 200,
+      "finalUrl": "https://waaa.2maoyunaff.cc/#/?code=uHeyKG44",
+      "title": "二猫云 线路检测",
+      "method": "公开HTTP读取；未执行页面脚本，未登录"
+    }
   },
   {
     "id": "sogo",
@@ -95,8 +217,20 @@
       "2026-08-09"
     ],
     "currentPriceStatus": "尚未取得当前购买页及结算证据；以下金额为历史参考。",
-    "reviewedAt": null,
-    "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    "reviewedAt": "2026-10-10",
+    "finding": "公开HTTP读取返回“sogo云 线路检测”页面；未取得公开完整套餐及结算证据。",
+    "previousReview": {
+      "date": null,
+      "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    },
+    "publicCheck": {
+      "checkedAt": "2026-10-10",
+      "entry": "https://wzjc.sogoyunaff.cc/#/?code=2x2EywO9",
+      "status": 200,
+      "finalUrl": "https://wzjc.sogoyunaff.cc/#/?code=2x2EywO9",
+      "title": "sogo云 线路检测",
+      "method": "公开HTTP读取；未执行页面脚本，未登录"
+    }
   },
   {
     "id": "yuzhou",
@@ -104,8 +238,20 @@
       "2026-08-09"
     ],
     "currentPriceStatus": "尚未取得当前购买页及结算证据；以下金额为历史参考。",
-    "reviewedAt": null,
-    "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    "reviewedAt": "2026-10-10",
+    "finding": "公开HTTP读取返回“宇宙云 线路检测”页面；未取得公开完整套餐及结算证据。",
+    "previousReview": {
+      "date": null,
+      "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    },
+    "publicCheck": {
+      "checkedAt": "2026-10-10",
+      "entry": "https://wzjc.yuzoucloud.cc/#/?code=wL7YStBa",
+      "status": 200,
+      "finalUrl": "https://wzjc.yuzoucloud.cc/#/?code=wL7YStBa",
+      "title": "宇宙云 线路检测",
+      "method": "公开HTTP读取；未执行页面脚本，未登录"
+    }
   },
   {
     "id": "1fly",
@@ -113,8 +259,20 @@
       "2026-08-09"
     ],
     "currentPriceStatus": "尚未取得当前购买页及结算证据；以下金额为历史参考。",
-    "reviewedAt": null,
-    "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    "reviewedAt": "2026-10-10",
+    "finding": "公开HTTP读取返回“一翻云 线路检测”页面；未取得公开完整套餐及结算证据。",
+    "previousReview": {
+      "date": null,
+      "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    },
+    "publicCheck": {
+      "checkedAt": "2026-10-10",
+      "entry": "https://wzjc.1flyunaff.cc/#/?code=F7eaT191",
+      "status": 200,
+      "finalUrl": "https://wzjc.1flyunaff.cc/#/?code=F7eaT191",
+      "title": "一翻云 线路检测",
+      "method": "公开HTTP读取；未执行页面脚本，未登录"
+    }
   },
   {
     "id": "edgenova",
@@ -122,8 +280,20 @@
       "2026-08-09"
     ],
     "currentPriceStatus": "尚未取得当前购买页及结算证据；以下金额为历史参考。",
-    "reviewedAt": null,
-    "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    "reviewedAt": "2026-10-10",
+    "finding": "公开HTTP读取返回“edgenova 线路检测”页面；未取得公开完整套餐及结算证据。",
+    "previousReview": {
+      "date": null,
+      "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    },
+    "publicCheck": {
+      "checkedAt": "2026-10-10",
+      "entry": "https://work.edgenovaaff.cc/#/?code=z81zCfw1",
+      "status": 200,
+      "finalUrl": "https://work.edgenovaaff.cc/#/?code=z81zCfw1",
+      "title": "edgenova 线路检测",
+      "method": "公开HTTP读取；未执行页面脚本，未登录"
+    }
   },
   {
     "id": "kosing",
@@ -131,8 +301,20 @@
       "2026-09-27"
     ],
     "currentPriceStatus": "尚未取得当前购买页及结算证据；以下金额为历史参考。",
-    "reviewedAt": "2026-10-09",
-    "finding": "本轮打开可信云登录页；无公开购买或结算信息，无法确认现价、客户端支持和服务恢复。"
+    "reviewedAt": "2026-10-10",
+    "finding": "公开HTTP读取返回“可信云 线路检测”页面；未取得公开完整套餐及结算证据。",
+    "previousReview": {
+      "date": "2026-10-09",
+      "finding": "本轮打开可信云登录页；无公开购买或结算信息，无法确认现价、客户端支持和服务恢复。"
+    },
+    "publicCheck": {
+      "checkedAt": "2026-10-10",
+      "entry": "https://work.kosingaff.com/#/?code=BNsA58Es",
+      "status": 200,
+      "finalUrl": "https://work.kosingaff.com/#/?code=BNsA58Es",
+      "title": "可信云 线路检测",
+      "method": "公开HTTP读取；未执行页面脚本，未登录"
+    }
   },
   {
     "id": "sujie",
@@ -140,8 +322,20 @@
       "2026-08-09"
     ],
     "currentPriceStatus": "尚未取得当前购买页及结算证据；以下金额为历史参考。",
-    "reviewedAt": null,
-    "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    "reviewedAt": "2026-10-10",
+    "finding": "公开HTTP读取返回“速界 线路检测”页面；未取得公开完整套餐及结算证据。",
+    "previousReview": {
+      "date": null,
+      "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    },
+    "publicCheck": {
+      "checkedAt": "2026-10-10",
+      "entry": "https://work.speedworldaff.cc/#/?code=wSjLCpIf",
+      "status": 200,
+      "finalUrl": "https://work.speedworldaff.cc/#/?code=wSjLCpIf",
+      "title": "速界 线路检测",
+      "method": "公开HTTP读取；未执行页面脚本，未登录"
+    }
   },
   {
     "id": "kuaili",
@@ -149,8 +343,20 @@
       "2026-08-09"
     ],
     "currentPriceStatus": "尚未取得当前购买页及结算证据；以下金额为历史参考。",
-    "reviewedAt": null,
-    "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    "reviewedAt": "2026-10-10",
+    "finding": "公开HTTP读取返回“快狸 线路检测”页面；未取得公开完整套餐及结算证据。",
+    "previousReview": {
+      "date": null,
+      "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    },
+    "publicCheck": {
+      "checkedAt": "2026-10-10",
+      "entry": "https://work.kuailicloud.cc/#/?code=gVGJa0Mp",
+      "status": 200,
+      "finalUrl": "https://work.kuailicloud.cc/#/?code=gVGJa0Mp",
+      "title": "快狸 线路检测",
+      "method": "公开HTTP读取；未执行页面脚本，未登录"
+    }
   },
   {
     "id": "stardream",
@@ -158,8 +364,20 @@
       "2026-08-09"
     ],
     "currentPriceStatus": "尚未取得当前购买页及结算证据；以下金额为历史参考。",
-    "reviewedAt": null,
-    "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    "reviewedAt": "2026-10-10",
+    "finding": "公开HTTP读取返回“线路检测”页面；未取得公开完整套餐及结算证据。",
+    "previousReview": {
+      "date": null,
+      "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    },
+    "publicCheck": {
+      "checkedAt": "2026-10-10",
+      "entry": "https://kfccbb.xingdaomeng.com/#/?code=JTRIWFim",
+      "status": 200,
+      "finalUrl": "https://xdmaf01.xingdaomengaff.com/#/?code=JTRIWFim",
+      "title": "线路检测",
+      "method": "公开HTTP读取；未执行页面脚本，未登录"
+    }
   },
   {
     "id": "lightspeed",
@@ -167,8 +385,20 @@
       "2026-08-09"
     ],
     "currentPriceStatus": "尚未取得当前购买页及结算证据；以下金额为历史参考。",
-    "reviewedAt": null,
-    "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    "reviewedAt": "2026-10-10",
+    "finding": "公开HTTP读取返回“线路检测”页面；未取得公开完整套餐及结算证据。",
+    "previousReview": {
+      "date": null,
+      "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    },
+    "publicCheck": {
+      "checkedAt": "2026-10-10",
+      "entry": "https://mdlky.gsyaff.com/#/?code=6tRWbtgK",
+      "status": 200,
+      "finalUrl": "https://mdlky.gsyaff.com/#/?code=6tRWbtgK",
+      "title": "线路检测",
+      "method": "公开HTTP读取；未执行页面脚本，未登录"
+    }
   },
   {
     "id": "v2yun",
@@ -176,8 +406,20 @@
       "2026-08-09"
     ],
     "currentPriceStatus": "尚未取得当前购买页及结算证据；以下金额为历史参考。",
-    "reviewedAt": null,
-    "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    "reviewedAt": "2026-10-10",
+    "finding": "公开HTTP读取返回“线路检测”页面；未取得公开完整套餐及结算证据。",
+    "previousReview": {
+      "date": null,
+      "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    },
+    "publicCheck": {
+      "checkedAt": "2026-10-10",
+      "entry": "https://fast.v2yunvipaff.com/#/?code=xYEe8gyb",
+      "status": 200,
+      "finalUrl": "https://fast.v2yunvipaff.com/#/?code=xYEe8gyb",
+      "title": "线路检测",
+      "method": "公开HTTP读取；未执行页面脚本，未登录"
+    }
   },
   {
     "id": "u1s1",
@@ -185,8 +427,20 @@
       "2026-08-09"
     ],
     "currentPriceStatus": "尚未取得当前购买页及结算证据；以下金额为历史参考。",
-    "reviewedAt": null,
-    "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    "reviewedAt": "2026-10-10",
+    "finding": "公开HTTP读取返回“线路检测”页面；未取得公开完整套餐及结算证据。",
+    "previousReview": {
+      "date": null,
+      "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    },
+    "publicCheck": {
+      "checkedAt": "2026-10-10",
+      "entry": "https://pkdj7.vipaff.cc/#/?code=NMjmHbvu",
+      "status": 200,
+      "finalUrl": "https://pkdj7.vipaff.cc/#/?code=NMjmHbvu",
+      "title": "线路检测",
+      "method": "公开HTTP读取；未执行页面脚本，未登录"
+    }
   },
   {
     "id": "jilian",
@@ -194,8 +448,20 @@
       "2026-08-09"
     ],
     "currentPriceStatus": "尚未取得当前购买页及结算证据；以下金额为历史参考。",
-    "reviewedAt": "2026-10-09",
-    "finding": "本轮打开会员注册页；无公开价目。旧表中的极速云名称与极连云对应关系仍未解决。"
+    "reviewedAt": "2026-10-10",
+    "finding": "公开HTTP读取返回“线路检测”页面；未取得公开完整套餐及结算证据。",
+    "previousReview": {
+      "date": "2026-10-09",
+      "finding": "本轮打开会员注册页；无公开价目。旧表中的极速云名称与极连云对应关系仍未解决。"
+    },
+    "publicCheck": {
+      "checkedAt": "2026-10-10",
+      "entry": "https://kdjhao.jlyvipaff.com/#/?code=poyoU7mq",
+      "status": 200,
+      "finalUrl": "https://kdjhao.jlyvipaff.com/#/?code=poyoU7mq",
+      "title": "线路检测",
+      "method": "公开HTTP读取；未执行页面脚本，未登录"
+    }
   },
   {
     "id": "globalcloud",
@@ -203,8 +469,20 @@
       "2026-08-09"
     ],
     "currentPriceStatus": "尚未取得当前购买页及结算证据；以下金额为历史参考。",
-    "reviewedAt": null,
-    "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    "reviewedAt": "2026-10-10",
+    "finding": "公开HTTP读取返回“线路检测”页面；未取得公开完整套餐及结算证据。",
+    "previousReview": {
+      "date": null,
+      "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    },
+    "publicCheck": {
+      "checkedAt": "2026-10-10",
+      "entry": "https://sswdh.gcvipaff.com/#/?code=NE1AcNIX",
+      "status": 200,
+      "finalUrl": "https://sswdh.gcvipaff.com/#/?code=NE1AcNIX",
+      "title": "线路检测",
+      "method": "公开HTTP读取；未执行页面脚本，未登录"
+    }
   },
   {
     "id": "guangnianti",
@@ -212,8 +490,20 @@
       "2026-08-09"
     ],
     "currentPriceStatus": "尚未取得当前购买页及结算证据；以下金额为历史参考。",
-    "reviewedAt": null,
-    "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    "reviewedAt": "2026-10-10",
+    "finding": "公开HTTP读取返回“线路检测”页面；未取得公开完整套餐及结算证据。",
+    "previousReview": {
+      "date": null,
+      "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    },
+    "publicCheck": {
+      "checkedAt": "2026-10-10",
+      "entry": "https://ggmq.gntaff.com/#/?code=RAJFvngV",
+      "status": 200,
+      "finalUrl": "https://ggmq.gntaff.com/#/?code=RAJFvngV",
+      "title": "线路检测",
+      "method": "公开HTTP读取；未执行页面脚本，未登录"
+    }
   },
   {
     "id": "flyv",
@@ -221,8 +511,20 @@
       "2026-08-08"
     ],
     "currentPriceStatus": "尚未取得当前购买页及结算证据；以下金额为历史参考。",
-    "reviewedAt": null,
-    "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    "reviewedAt": "2026-10-10",
+    "finding": "公开HTTP读取返回“FlyV 线路检测”页面；未取得公开完整套餐及结算证据。",
+    "previousReview": {
+      "date": null,
+      "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    },
+    "publicCheck": {
+      "checkedAt": "2026-10-10",
+      "entry": "https://varnexa.flyvaff.com/#/?code=UoU2Izm5",
+      "status": 200,
+      "finalUrl": "https://varnexa.flyvaff.com/#/?code=UoU2Izm5",
+      "title": "FlyV 线路检测",
+      "method": "公开HTTP读取；未执行页面脚本，未登录"
+    }
   },
   {
     "id": "laddercloud",
@@ -230,8 +532,20 @@
       "2026-08-08"
     ],
     "currentPriceStatus": "尚未取得当前购买页及结算证据；以下金额为历史参考。",
-    "reviewedAt": null,
-    "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    "reviewedAt": "2026-10-10",
+    "finding": "公开HTTP读取返回“梯子云 线路检测”页面；未取得公开完整套餐及结算证据。",
+    "previousReview": {
+      "date": null,
+      "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    },
+    "publicCheck": {
+      "checkedAt": "2026-10-10",
+      "entry": "https://varnexa.ladderaff.com/#/?code=kuE4kqxo",
+      "status": 200,
+      "finalUrl": "https://varnexa.ladderaff.com/#/?code=kuE4kqxo",
+      "title": "梯子云 线路检测",
+      "method": "公开HTTP读取；未执行页面脚本，未登录"
+    }
   },
   {
     "id": "wavenet",
@@ -239,8 +553,20 @@
       "2026-08-08"
     ],
     "currentPriceStatus": "尚未取得当前购买页及结算证据；以下金额为历史参考。",
-    "reviewedAt": null,
-    "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    "reviewedAt": "2026-10-10",
+    "finding": "公开HTTP读取返回“浪网WaveNet 线路检测”页面；未取得公开完整套餐及结算证据。",
+    "previousReview": {
+      "date": null,
+      "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    },
+    "publicCheck": {
+      "checkedAt": "2026-10-10",
+      "entry": "https://varnexa.wavenetaff.com/#/?code=oU77JXen",
+      "status": 200,
+      "finalUrl": "https://varnexa.wavenetaff.com/#/?code=oU77JXen",
+      "title": "浪网WaveNet 线路检测",
+      "method": "公开HTTP读取；未执行页面脚本，未登录"
+    }
   },
   {
     "id": "lingdong",
@@ -248,8 +574,21 @@
       "2026-08-08"
     ],
     "currentPriceStatus": "尚未取得当前购买页及结算证据；以下金额为历史参考。",
-    "reviewedAt": null,
-    "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    "reviewedAt": "2026-10-10",
+    "finding": "公开HTTP读取本次未取得可用响应；不据此认定停运，也不确认现价。 浏览器显示“灵动云线路检测”页与可用目标列表，未取得公开套餐卡片。",
+    "previousReview": {
+      "date": null,
+      "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    },
+    "publicCheck": {
+      "checkedAt": "2026-10-10",
+      "entry": "https://varnexa.lingdongaff.com/#/?code=QcRK6OPG",
+      "status": null,
+      "finalUrl": null,
+      "title": "",
+      "method": "公开HTTP读取；未执行页面脚本，未登录",
+      "browserObservation": "灵动云线路检测页，未取得套餐卡片"
+    }
   },
   {
     "id": "invisible",
@@ -257,7 +596,19 @@
       "2026-08-08"
     ],
     "currentPriceStatus": "尚未取得当前购买页及结算证据；以下金额为历史参考。",
-    "reviewedAt": null,
-    "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    "reviewedAt": "2026-10-10",
+    "finding": "公开HTTP读取返回“隐形人Invisible 线路检测”页面；未取得公开完整套餐及结算证据。",
+    "previousReview": {
+      "date": null,
+      "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
+    },
+    "publicCheck": {
+      "checkedAt": "2026-10-10",
+      "entry": "https://varnexa.invisibleaff.com/#/?code=JF4seZUy",
+      "status": 200,
+      "finalUrl": "https://varnexa.invisibleaff.com/#/?code=JF4seZUy",
+      "title": "隐形人Invisible 线路检测",
+      "method": "公开HTTP读取；未执行页面脚本，未登录"
+    }
   }
 ]
