@@ -28,7 +28,7 @@
     ],
     "currentPriceStatus": "尚未取得当前购买页及结算证据；以下金额为历史参考。",
     "reviewedAt": "2026-10-10",
-    "finding": "公开HTTP读取本次未取得可用响应；不据此认定停运，也不确认现价。 浏览器进入线路检测页，目标列表出现civetnetfttt1域名；当前入口目标的品牌归属待核对。",
+    "finding": "HTTP读取本次未取得可用响应；浏览器经线路检测到达civetnetfttt1目标的进入前确认页，未继续。近期第三方记录将该域名系列列为飞猫入口，不能仅因域名判断跳错；品牌与购买条件仍未完整核验。",
     "previousReview": {
       "date": null,
       "finding": "本轮沿用已有参考资料，未重新核验官网现价。"
@@ -40,7 +40,7 @@
       "finalUrl": null,
       "title": "",
       "method": "公开HTTP读取；未执行页面脚本，未登录",
-      "browserObservation": "s1.fei9sjf.xyz线路检测页；目标含civetnetfttt1域名，未确认品牌归属"
+      "browserObservation": "mnqaa.civetnetfttt1.xyz进入前确认页；继续需同意条款，未继续"
     }
   },
   {

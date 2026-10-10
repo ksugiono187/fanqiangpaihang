@@ -5,6 +5,7 @@ from enhancements import enhance
 from presentation import home_layout, brand_card, topic_cards
 from guide_depth import EXTRAS, extra_guide, brand_brief
 from comparison import public_brands, render_comparison, render_updates
+from identity_evidence import identity_panel, evidence_page
 from editorial import evidence_panel, focused_guide
 from measurements import report_panel, coverage, entry_card
 from content_revision import revise, price_panel, audit_table
@@ -18,9 +19,12 @@ source=json.loads((ROOT/'data/reference-data.json').read_text(encoding='utf-8-si
 order='breezenet flycat twilight dalaocloud firefly civet flashleap worryfree kuajie 2mao sogo yuzhou 1fly edgenova kosing sujie kuaili stardream lightspeed v2yun u1s1 jilian globalcloud guangnianti flyv laddercloud wavenet lingdong invisible'.split()
 coupons=dict(breezenet='weifeng90',flycat='flycat888',worryfree='wuyou666',flashleap='shanyue',firefly='firefly',stardream='nmw888',lightspeed='jichangcha09',v2yun='rabbit',u1s1='U1S1',globalcloud='tt88',yuzhou='YUZHOU553')
 byid={b['id']:b for b in source['brands']}
+byid['flycat']['profile']['verifyInsight']='近期第三方记录另称暂停通用订阅、未见有效优惠码，本站尚未登录复现。购买前确认当前客户端要求、学生年包资格与flycat888结算条件；域名含civet不能单独证明入口错误。'
 verification={v['id']:v for v in json.loads((ROOT/'data/verification.json').read_text(encoding='utf-8'))}
 test_records={v['id']:v for v in json.loads((ROOT/'data/third-party-tests.json').read_text(encoding='utf-8'))}
 price_audit={v['id']:v for v in json.loads((ROOT/'data/price-audit.json').read_text(encoding='utf-8'))}
+identity_records=json.loads((ROOT/'data/identity-evidence.json').read_text(encoding='utf-8'))
+identity_byid={v['id']:v for v in identity_records}
 brands=[byid[x] for x in order]
 for i,b in enumerate(brands):
     b['rank']=i+1
@@ -64,7 +68,7 @@ def table(b,plans=None):
 pages=[]
 favicon='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><rect width="40" height="40" rx="4" fill="#182e36"/><path d="M9 29V22H14V29M18 29V15H23V29M27 29V8H32V29" fill="#e5c997"/></svg>'
 (DIST/'assets/favicon.svg').write_text(favicon,encoding='utf-8')
-for asset in ('app.js','style.css','editorial.css','test-record-template.txt','compare.mjs','comparison-core.mjs'):
+for asset in ('app.js','style.css','editorial.css','test-record-template.txt','compare.mjs','comparison-core.mjs','seven-day-test-plan.csv'):
     shutil.copyfile(ROOT/'assets'/asset,DIST/'assets'/asset)
 nav='<a href="#site-search">搜索</a><a href="/topics/">严选专题</a><a href="/brands/">品牌库</a><a href="/compare/">比较</a><a href="/articles/">文章</a><a href="/coupons/">优惠码</a>'
 def page(path,title,desc,body,kind='WebPage',article=None):
@@ -72,7 +76,7 @@ def page(path,title,desc,body,kind='WebPage',article=None):
         b=byid[path.split('/')[2]]
         marker='<section class="section"><h2>套餐与流量档案</h2>'
         body=body.replace(marker,'<nav class="brand-tabs" aria-label="品牌资料导航"><a href="#packages">套餐档案</a><a href="#public-test">测速资料</a><a href="#price-check">价格核对</a></nav><section class="section" id="packages"><h2>套餐与流量档案</h2>',1)
-        panels=report_panel(b,test_records[b['id']])+price_panel(b,price_audit[b['id']])+'<details class="evidence-disclosure"><summary>展开入口与资料核对记录</summary>'+evidence_panel(b,verification[b['id']])+'</details>'
+        panels=report_panel(b,test_records[b['id']])+price_panel(b,price_audit[b['id']])+identity_panel(identity_byid.get(b['id']))+'<details class="evidence-disclosure"><summary>展开入口与资料核对记录</summary>'+evidence_panel(b,verification[b['id']])+'</details>'
         body=body.replace('</section><div class="article">','</section>'+panels+'<div class="article">',1)
         if test_records[b['id']]['status']!='not_collected':
             body=body.replace('以下为套餐资料与分析。','下方包含套餐分析与有出处的第三方测速摘录。')
@@ -216,11 +220,12 @@ home=home_layout(brands,articles,price)
 home=home.replace('<div class="facts-strip">','<div class="compare-promo"><div><span class="eyebrow">COMPARE / 同需求比较</span><h2>把两个品牌放在一起看。</h2><p>按预算和月用量对照完整付款、容量余量与资料依据。</p></div><a class="button" href="/compare/">打开品牌比较 →</a><a class="text-link" href="/updates/">查看资料更新记录 →</a></div><div class="facts-strip">',1)
 page('/compare/','机场品牌比较工具：按预算、流量与证据对照','选择最多三个机场品牌，按月用量和预算比较历史套餐付款、剩余额度与第三方报告范围。',render_comparison(brands,monthly,excluded),'CollectionPage')
 page('/updates/','资料更新与纠错：29个品牌入口核对记录','公开2026-10-10的29个品牌入口读取结果、价格未确认事项、内容更新与资料纠错方式。',render_updates(brands))
+page('/verification/','入口与套餐专项核对：飞猫、Firefly、极连云和可信云','查看四个品牌的直接页面观察、来源对照、未解决条件，以及尚未执行的七天真实测试采集计划。',evidence_page(identity_records,brands))
 (DIST/'assets/compare-data.json').write_text(json.dumps(public_brands(brands,monthly,excluded),ensure_ascii=False),encoding='utf-8')
 page('/','梯子推荐与机场推荐：品牌库、严选排行与选购指南','翻墙排行整理29个机场品牌、150篇套餐研究与选购指南，提供机场推荐前十、便宜机场严选和稳定性待测候选。',home)
 mapbody='<article class="article"><h1>网站地图</h1><ul>'+''.join(f'<li><a href="{p["path"]}">{E(p["title"])}</a></li>' for p in pages)+'</ul></article>'
 page('/sitemap/','翻墙排行网站地图','浏览品牌详情、排行专题与全部150篇文章的链接。',mapbody)
-(DIST/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(f'<url><loc>{DOMAIN}{p["path"]}</loc><lastmod>{"2026-10-10" if p["path"] in ("/compare/","/updates/","/","/sitemap/","/methodology/") or p["path"].startswith("/brands/") else DATE}</lastmod></url>' for p in pages)+'</urlset>',encoding='utf-8')
+(DIST/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(f'<url><loc>{DOMAIN}{p["path"]}</loc><lastmod>{"2026-10-10" if p["path"] in ("/compare/","/updates/","/verification/","/","/sitemap/","/methodology/") or p["path"].startswith("/brands/") else DATE}</lastmod></url>' for p in pages)+'</urlset>',encoding='utf-8')
 (DIST/'robots.txt').write_text('User-agent: *\nAllow: /\nSitemap: '+DOMAIN+'/sitemap.xml\n',encoding='utf-8')
 (DIST/'404.html').write_text('<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>页面未找到｜翻墙排行</title><link rel="stylesheet" href="/assets/style.css"><link rel="stylesheet" href="/assets/editorial.css"><main class="shell"><h1>页面未找到</h1><p>请从品牌库、专题或文章目录继续阅读。</p><a href="/">返回首页</a></main></html>',encoding='utf-8')
 (ROOT/'data/brands.json').write_text(json.dumps(brands,ensure_ascii=False,indent=2),encoding='utf-8')
